@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TutorialQuest.Objects
+namespace Cirrus.TutorialQuest.Objects
 {
     // Exercise: Extend sprite controller
     public class BaseSpriteController
@@ -56,8 +56,14 @@ namespace TutorialQuest.Objects
             Vector2 scale
             )
         {
-            sprite.Draw(spriteBatch, position, rotation, scale);
-        }
+            sprite.Depth = 1f;
 
+            spriteBatch.Draw(
+                sprite:sprite, 
+                position:position, 
+                rotation:rotation, 
+                scale:scale
+                );
+        }
     }
 }

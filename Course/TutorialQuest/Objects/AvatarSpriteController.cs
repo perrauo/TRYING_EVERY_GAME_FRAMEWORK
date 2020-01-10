@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TutorialQuest.Objects
+namespace Cirrus.TutorialQuest.Objects
 {
     public class AvatarSpriteController : BaseSpriteController
     {
@@ -19,7 +19,23 @@ namespace TutorialQuest.Objects
                 base(
                     spriteWidth,
                     spriteHeight)
-        { }                  
+        { }
+
+        public string WalkForwardAnimation = "WalkForward";
+
+        public string WalkLeftAnimation = "WalkLeft";
+
+        public string WalkRightAnimation = "WalkRight";
+
+        public string WalkBackwardAnimation = "WalkBackward";
+
+        public string IdleForwardAnimation = "IdleForward";
+
+        public string IdleLeftAnimation = "IdleLeft";
+
+        public string IdleRightAnimation = "IdleRight";
+
+        public string IdleBackwardAnimation = "IdleBackward";
 
         public override void LoadContent(ContentManager contentManager)
         {
@@ -30,16 +46,45 @@ namespace TutorialQuest.Objects
             SpriteSheetAnimationFactory animationFactory = new SpriteSheetAnimationFactory(characterAtlas);
 
             animationFactory.Add(
-                "WalkForward", new SpriteSheetAnimationData(new[] { 0, 1, 2 }, isLooping: true));
+                WalkForwardAnimation, 
+                new SpriteSheetAnimationData(new[] { 0, 1, 2 }, 
+                isLooping: true));
 
             animationFactory.Add(
-                "WalkLeft", new SpriteSheetAnimationData(new[] { 3, 4, 5 }, isLooping: true));
+                IdleForwardAnimation,
+                new SpriteSheetAnimationData(new[] { 1 },
+                isLooping: true));
 
             animationFactory.Add(
-                "WalkRight", new SpriteSheetAnimationData(new[] { 6, 7, 8 }, isLooping: true));
+                WalkLeftAnimation, 
+                new SpriteSheetAnimationData(new[] { 3, 4, 5 }, 
+                isLooping: true));
 
             animationFactory.Add(
-                "WalkBackward", new SpriteSheetAnimationData(new[] { 9, 10, 11 }, isLooping: true));
+                IdleLeftAnimation,
+                new SpriteSheetAnimationData(new[] { 4 },
+                isLooping: true));
+
+            animationFactory.Add(
+                WalkRightAnimation, 
+                new SpriteSheetAnimationData(new[] { 6, 7, 8 }, 
+                isLooping: true));
+
+            animationFactory.Add(
+                IdleRightAnimation,
+                new SpriteSheetAnimationData(new[] { 7 },
+                isLooping: true));
+
+            animationFactory.Add(
+                WalkBackwardAnimation, 
+                new SpriteSheetAnimationData(new[] 
+                { 9, 10, 11 }, 
+                isLooping: true));
+
+            animationFactory.Add(
+                IdleBackwardAnimation,
+                new SpriteSheetAnimationData(new[] { 10 },
+                isLooping: true));
 
             sprite = new AnimatedSprite(animationFactory);
         }

@@ -4,24 +4,31 @@ using Microsoft.Xna.Framework.Input;
 
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.ViewportAdapters;
+
+
 using Newtonsoft.Json;
 using System.IO;
 using System.Xml.Serialization;
-using TutorialQuest.Levels;
 
-namespace TutorialQuest
+using MonoGame.Extended;
+using Cirrus.TutorialQuest.Levels;
+
+namespace Cirrus.TutorialQuest
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
+        private GraphicsDeviceManager graphics;
+
+        public ViewportAdapter ViewportAdapter { get; private set; }
 
         public SpriteBatch SpriteBatch { get; private set; }
 
-        private Level currentLevel;
+        public Level CurrentLevel { get; private set; }
 
+        public CameraController CameraController { get; private set; }
 
         public Game()
         {
@@ -38,6 +45,12 @@ namespace TutorialQuest
         /// </summary>
         protected override void Initialize()
         {
+            ViewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 800, 480);
+
+            CameraController = new CameraController(new OrthographicCamera(ViewportAdapter));
+
+            CameraController.Initialize();
+
             XmlSerializer serializer = new XmlSerializer(typeof(Level));
 
             using (TextReader reader =
@@ -47,8 +60,8 @@ namespace TutorialQuest
                         Content.RootDirectory,
                         "Levels/Level1.xml"))))
             {
-                currentLevel = (Level)serializer.Deserialize(reader);
-                currentLevel.Initialize(this);
+                CurrentLevel = (Level)serializer.Deserialize(reader);
+                CurrentLevel.Initialize(this);
             }
 
             base.Initialize();
@@ -63,7 +76,7 @@ namespace TutorialQuest
             // Create a new SpriteBatch, which can be used to draw textures.
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            currentLevel.LoadContent();
+            CurrentLevel.LoadContent();
 
             base.LoadContent();
         }
@@ -87,7 +100,9 @@ namespace TutorialQuest
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            currentLevel.Update(gameTime);
+            CameraController.Update(gameTime);
+
+            CurrentLevel.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -100,9 +115,11 @@ namespace TutorialQuest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            SpriteBatch.Begin();
-
-            currentLevel.Draw(gameTime);
+            SpriteBatch.Begin(
+                transformMatrix:CameraController.Camera.GetViewMatrix(), 
+                samplerState: SamplerState.PointClamp);
+            
+            CurrentLevel.Draw(gameTime);
 
             base.Draw(gameTime);
 

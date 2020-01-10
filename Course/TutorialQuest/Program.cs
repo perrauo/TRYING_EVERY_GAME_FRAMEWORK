@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TutorialQuest
+namespace Cirrus.TutorialQuest
 {
 #if WINDOWS || LINUX
     /// <summary>

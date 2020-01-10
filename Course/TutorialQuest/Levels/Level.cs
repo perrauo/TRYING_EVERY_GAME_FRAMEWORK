@@ -13,9 +13,10 @@ using MonoGame.Extended.Tiled;
 using System.Xml.Serialization;
 using MonoGame.Extended.Tiled.Renderers;
 using System.Collections.Generic;
-using TutorialQuest.Objects;
+using Cirrus.TutorialQuest.Objects;
 
-namespace TutorialQuest.Levels
+
+namespace Cirrus.TutorialQuest.Levels
 {
     [XmlRoot("Level")]
     public class Level
@@ -33,7 +34,7 @@ namespace TutorialQuest.Levels
 
         private Game game;
 
-        private Vector2 AvatarPosition = Vector2.One * 32; 
+        private Vector2 AvatarPosition = Vector2.One * 48; 
 
         private Avatar avatar;
 
@@ -41,11 +42,11 @@ namespace TutorialQuest.Levels
         {
             this.game = game;
 
-            camera = new OrthographicCamera(game.GraphicsDevice);
-
             tileMapRenderer = new TiledMapRenderer(game.GraphicsDevice);
 
             avatar = new Avatar(AvatarPosition);
+
+            game.CameraController.SetTarget(avatar);
         }
 
         public void LoadContent()
@@ -66,7 +67,7 @@ namespace TutorialQuest.Levels
 
         public void Draw(GameTime gameTime)
         {
-            tileMapRenderer.Draw(camera.GetViewMatrix());
+            tileMapRenderer.Draw(game.CameraController.Camera.GetViewMatrix());
 
             avatar.Draw(game.SpriteBatch);
 

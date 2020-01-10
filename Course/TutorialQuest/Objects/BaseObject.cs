@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TutorialQuest.Objects
+namespace Cirrus.TutorialQuest.Objects
 {
     public abstract class BaseObject
     {
         public Vector2 Position { get; set; }
 
         public Vector2 Scale { get; set; }
+
+        public Numeric.Vector2Int Direction { get; set; }
 
         public float Rotation { get; set; }
 

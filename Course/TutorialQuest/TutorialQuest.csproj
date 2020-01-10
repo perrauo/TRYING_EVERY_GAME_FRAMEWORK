@@ -59,8 +59,13 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CameraController.cs" />
+    <Compile Include="Cirrus\Vector2Extension.cs" />
+    <Compile Include="Cirrus\Vector2Int.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Levels\Level.cs" />
+    <Compile Include="Objects\AvatarController.cs" />
+    <Compile Include="Objects\AvatarControlScheme.cs" />
     <Compile Include="Objects\BaseObject.cs" />
     <Compile Include="Objects\Avatar.cs" />
     <Compile Include="Objects\BaseSpriteController.cs" />
