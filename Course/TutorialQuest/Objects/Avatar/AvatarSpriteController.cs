@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Cirrus.Numeric;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Animations;
 using MonoGame.Extended.Animations.SpriteSheets;
@@ -15,10 +16,12 @@ namespace Cirrus.TutorialQuest.Objects
     {
         public AvatarSpriteController(
             int spriteWidth,
-            int spriteHeight) :
+            int spriteHeight,
+            Vector2Int origin) :
                 base(
                     spriteWidth,
-                    spriteHeight)
+                    spriteHeight,
+                    origin)
         { }
 
         public string WalkForwardAnimation = "WalkForward";
@@ -39,7 +42,7 @@ namespace Cirrus.TutorialQuest.Objects
 
         public override void LoadContent(ContentManager contentManager)
         {
-            Texture2D texture = contentManager.Load<Texture2D>("Objects/Characters/avatar_walk");
+            Texture2D texture = contentManager.Load<Texture2D>("Objects/Characters/avatar_spritesheet");
 
             TextureAtlas characterAtlas = TextureAtlas.Create("Avatar", texture, spriteWidth, spriteHeight);
 

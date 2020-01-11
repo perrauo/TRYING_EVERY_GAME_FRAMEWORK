@@ -73,12 +73,12 @@ namespace Cirrus.TutorialQuest
         /// </summary>
         protected override void LoadContent()
         {
+            base.LoadContent();
+            
             // Create a new SpriteBatch, which can be used to draw textures.
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             CurrentLevel.LoadContent();
-
-            base.LoadContent();
         }
 
         /// <summary>
@@ -97,14 +97,14 @@ namespace Cirrus.TutorialQuest
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             CameraController.Update(gameTime);
 
             CurrentLevel.Update(gameTime);
-
-            base.Update(gameTime);
         }
 
         /// <summary>
@@ -113,15 +113,19 @@ namespace Cirrus.TutorialQuest
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            base.Draw(gameTime);
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             SpriteBatch.Begin(
-                transformMatrix:CameraController.Camera.GetViewMatrix(), 
-                samplerState: SamplerState.PointClamp);
+                transformMatrix:CameraController.Camera.GetViewMatrix(),
+                sortMode: SpriteSortMode.BackToFront,
+                samplerState: SamplerState.PointClamp,
+                depthStencilState: DepthStencilState.Default,
+                blendState: BlendState.AlphaBlend,
+                rasterizerState: RasterizerState.CullNone);
             
-            CurrentLevel.Draw(gameTime);
-
-            base.Draw(gameTime);
+            CurrentLevel.Draw(gameTime);           
 
             SpriteBatch.End();
 

@@ -14,7 +14,7 @@ using System.Xml.Serialization;
 using MonoGame.Extended.Tiled.Renderers;
 using System.Collections.Generic;
 using Cirrus.TutorialQuest.Objects;
-
+using TutorialQuest.Levels;
 
 namespace Cirrus.TutorialQuest.Levels
 {
@@ -24,56 +24,58 @@ namespace Cirrus.TutorialQuest.Levels
         [XmlElement("TileMap")]
         public string TileMapFile { get; set; }
 
-        private TiledMap tileMap;
-
-        private TiledMapRenderer tileMapRenderer;
-
         private OrthographicCamera camera;
 
         private List<BaseObject> objects = new List<BaseObject>();
 
         private Game game;
 
-        private Vector2 AvatarPosition = Vector2.One * 48; 
-
-        private Avatar avatar;
+        private TileMapController tileMapController;
 
         public void Initialize(Game game)
         {
             this.game = game;
 
-            tileMapRenderer = new TiledMapRenderer(game.GraphicsDevice);
-
-            avatar = new Avatar(AvatarPosition);
-
-            game.CameraController.SetTarget(avatar);
+            tileMapController = new TileMapController(game.GraphicsDevice);       
         }
 
         public void LoadContent()
         {
-            tileMap = game.Content.Load<TiledMap>(TileMapFile);
-            
-            tileMapRenderer.LoadMap(tileMap);
+            tileMapController.LoadContent(
+                game.Content, 
+                TileMapFile, 
+                out objects
+                );
 
-            avatar.LoadContent(game.Content);
+            foreach (BaseObject obj in objects)
+            {
+                obj.LoadContent(game.Content);
+
+                // TODO exercise event
+                if (obj is Avatar)
+                {
+                    game.CameraController.SetTarget(obj);
+                }
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            tileMapRenderer.Update(gameTime);
+            tileMapController.Update(gameTime);
 
-            avatar.Update(gameTime);
+            foreach (BaseObject obj in objects)
+            {
+                obj.Update(gameTime);
+            }
         }
 
         public void Draw(GameTime gameTime)
         {
-            tileMapRenderer.Draw(game.CameraController.Camera.GetViewMatrix());
-
-            avatar.Draw(game.SpriteBatch);
+            tileMapController.Draw(game.CameraController.Camera);
 
             foreach (BaseObject obj in objects)
             {
-                //obj.Draw(game.SpriteBatch)
+                obj.Draw(game.SpriteBatch);
             }
         }
     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cirrus.TutorialQuest.Objects
 {
-    public class Avatar : BaseObject
+    public class Avatar : Character
     {
         private AvatarController controller;
 
@@ -19,8 +19,6 @@ namespace Cirrus.TutorialQuest.Objects
         private const int spriteWidth = 32;
 
         private const int spriteHeight = 32;
-
-        public float Speed = 1f;
 
         public Vector2 Axes;
 
@@ -39,7 +37,8 @@ namespace Cirrus.TutorialQuest.Objects
         {
             spriteController = new AvatarSpriteController(
                 spriteWidth, 
-                spriteHeight);
+                spriteHeight,
+                new Vector2Int(spriteWidth/2, spriteHeight));
 
             controller = new AvatarController(this);
         }
@@ -62,12 +61,12 @@ namespace Cirrus.TutorialQuest.Objects
                 Direction = Vector2Int.Right;
                 spriteController.Play(spriteController.WalkRightAnimation);
             }
-            else if (Axes.Y < 0)
+            else if(Axes.Y < 0)
             {
                 Direction = Vector2Int.Down;
                 spriteController.Play(spriteController.WalkBackwardAnimation);
             }
-            else if (Axes.Y > 0)
+            else if(Axes.Y > 0)
             {
                 Direction = Vector2Int.Up;
                 spriteController.Play(spriteController.WalkForwardAnimation);

@@ -1,15 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Cirrus.Numeric;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using MonoGame.Extended.Animations;
-using MonoGame.Extended.Animations.SpriteSheets;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.TextureAtlases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Cirrus.TutorialQuest.Objects
 {
@@ -20,13 +18,20 @@ namespace Cirrus.TutorialQuest.Objects
 
         protected int spriteHeight;
 
+        protected Vector2Int origin;
+
         protected AnimatedSprite sprite;
 
-        public BaseSpriteController(int spriteWidth, int spriteHeight)
+        public BaseSpriteController(
+            int spriteWidth, 
+            int spriteHeight, 
+            Vector2Int origin)
         {
             this.spriteWidth = spriteWidth;
 
             this.spriteHeight = spriteHeight;
+
+            this.origin = origin;           
         }
 
         public virtual void Initialize()
@@ -56,14 +61,17 @@ namespace Cirrus.TutorialQuest.Objects
             Vector2 scale
             )
         {
-            sprite.Depth = 1f;
+            sprite.Origin = origin;
+
+            //spriteBatch.DrawCircle(position, 2, 32, Color.White);//, ShieldHealth);
+
+            sprite.Depth = 1 - (position.Y / 1000);
 
             spriteBatch.Draw(
-                sprite:sprite, 
-                position:position, 
-                rotation:rotation, 
-                scale:scale
-                );
+                sprite, 
+                position: position, 
+                rotation: rotation, 
+                scale: scale);
         }
     }
 }

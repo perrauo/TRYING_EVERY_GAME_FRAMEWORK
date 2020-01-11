@@ -64,12 +64,17 @@
     <Compile Include="Cirrus\Vector2Int.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Levels\Level.cs" />
-    <Compile Include="Objects\AvatarController.cs" />
-    <Compile Include="Objects\AvatarControlScheme.cs" />
+    <Compile Include="Levels\TileMapController.cs" />
+    <Compile Include="Objects\Avatar\AvatarController.cs" />
+    <Compile Include="Objects\Avatar\AvatarControlScheme.cs" />
     <Compile Include="Objects\BaseObject.cs" />
-    <Compile Include="Objects\Avatar.cs" />
+    <Compile Include="Objects\Avatar\Avatar.cs" />
     <Compile Include="Objects\BaseSpriteController.cs" />
-    <Compile Include="Objects\AvatarSpriteController.cs" />
+    <Compile Include="Objects\Avatar\AvatarSpriteController.cs" />
+    <Compile Include="Objects\Character.cs" />
+    <Compile Include="Objects\Monsters\MonsterController.cs" />
+    <Compile Include="Objects\Monsters\SlimeSpriteController.cs" />
+    <Compile Include="Objects\Monsters\Slime.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -132,9 +137,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Levels\Dungeon.tsx" />
+    <Content Include="Content\Levels\Fantasy_Dungeon.tsx" />
     <Content Include="Content\Objects\Characters\animation1.png" />
     <Content Include="Content\Objects\Characters\chara3.png" />
     <Content Include="Content\Objects\Characters\emote3.png" />
+    <Content Include="Content\Objects\Characters\Monsters\monster_spritesheet.png" />
     <Content Include="External\fantasyrpgtilesetpack\Assets\guide.png" />
     <Content Include="External\fantasyrpgtilesetpack\Assets\README_UPDATE.txt" />
     <Content Include="External\fantasyrpgtilesetpack\Assets\READ_ME.txt" />
@@ -2013,7 +2021,6 @@
     <Content Include="External\over80characterswithanimations!\Assets\sheets\npc3.png" />
     <Content Include="External\over80characterswithanimations!\Assets\sheets\npc4.png" />
     <Content Include="Icon.ico" />
-    <Content Include="Content\Levels\TileSet.tsx" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
@@ -2022,14 +2029,14 @@
     <Content Include="Content\Levels\Level1.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Content\Levels\TileMap1.tmx" />
+    <None Include="Content\Objects\Characters\Monsters\monster_spritesheet.gal" />
+    <None Include="Content\Objects\Characters\Monsters\slime_spritesheet.gal" />
     <None Include="Content\obj\Windows\.mgstats" />
     <None Include="External\fantasyrpgtilesetpack\Free Assets on GDM.pdf" />
     <None Include="External\fantasyrpgtilesetpack\Important - Read Me.pdf" />
     <None Include="External\over80characterswithanimations!\Free Assets on GDM.pdf" />
     <None Include="External\over80characterswithanimations!\Important - Read Me.pdf" />
-    <None Include="Content\Levels\TileMap.tmx">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
