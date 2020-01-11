@@ -45,7 +45,12 @@ namespace Cirrus.TutorialQuest
         /// </summary>
         protected override void Initialize()
         {
-            ViewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 800, 480);
+            ViewportAdapter = 
+                new BoxingViewportAdapter(
+                    Window, 
+                    GraphicsDevice, 
+                    800, 
+                    480);
 
             CameraController = new CameraController(new OrthographicCamera(ViewportAdapter));
 
