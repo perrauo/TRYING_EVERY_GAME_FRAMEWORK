@@ -1,0 +1,85 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:DesktopGL
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+/reference:..\..\Nez-master\Nez.Portable\bin\Debug\Nez.dll
+
+#---------------------------------- Content ---------------------------------#
+
+#begin Levels/Avatar.tsx
+/copy:Levels/Avatar.tsx
+
+#begin Levels/Collision.tsx
+/copy:Levels/Collision.tsx
+
+#begin Levels/fantasy/dungeon.png
+/copy:Levels/fantasy/dungeon.png
+
+#begin Levels/Fantasy_Dungeon.tsx
+/copy:Levels/Fantasy_Dungeon.tsx
+
+#begin Levels/Monsters.tsx
+/copy:Levels/Monsters.tsx
+
+#begin Levels/TileMap1.tmx
+/copy:Levels/TileMap1.tmx
+
+#begin Levels/tileset_collision.png
+/copy:Levels/tileset_collision.png
+
+#begin Objects/Characters/avatar_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Objects/Characters/avatar_spritesheet.png
+
+#begin Objects/Characters/Monsters/monster_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Objects/Characters/Monsters/monster_spritesheet.png
+
+#begin Objects/Characters/Monsters/monster_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Objects/Characters/Monsters/monster_spritesheet.png
+
+#begin Objects/Characters/Monsters/monster_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Objects/Characters/Monsters/monster_spritesheet.png
+
