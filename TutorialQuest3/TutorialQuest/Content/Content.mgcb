@@ -47,7 +47,7 @@
 /processorParam:TextureFormat=Color
 /build:Objects/Characters/avatar_spritesheet.png
 
-#begin Objects/Characters/Monsters/monster_spritesheet.png
+#begin Objects/Characters/effect_spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -57,19 +57,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Objects/Characters/Monsters/monster_spritesheet.png
-
-#begin Objects/Characters/Monsters/monster_spritesheet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Objects/Characters/Monsters/monster_spritesheet.png
+/build:Objects/Characters/effect_spritesheet.png
 
 #begin Objects/Characters/Monsters/monster_spritesheet.png
 /importer:TextureImporter

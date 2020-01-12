@@ -20,5 +20,10 @@ namespace Cirrus.TutorialQuest.World.Objects
         {
             SpriteAnimator = animator;          
         }
+
+        public virtual void Play(string animation, SpriteAnimator.LoopMode loopMode = SpriteAnimator.LoopMode.Loop)
+        {
+            SpriteAnimator.Play(animation, loopMode);
+        }
     }
 }

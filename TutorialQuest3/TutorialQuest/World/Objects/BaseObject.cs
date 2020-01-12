@@ -46,21 +46,20 @@ namespace Cirrus.TutorialQuest.World.Objects
             BoxCollider.LocalOffset = new Vector2Int(0, SpriteController.SpriteSize.Y / 3);
         }
     
-        public bool CollidesWithLevel(ref Vector2 velocity)
+        public bool IsCollidable(Physics.PhysicsLayer layers)
         {
-            if (BoxCollider.CollidesWithAny(out CollisionResult res))
-            {
-                return (res.Collider.PhysicsLayer & (int)Physics.PhysicsLayer.Level) != 0;
-            }
-
-            return false;
+            return 
+                (layers & Physics.PhysicsLayer.Level) != 0 ||
+                (layers & Physics.PhysicsLayer.Object) != 0;
         }
+
+
 
         public void MoveAndCollide(Vector2 velocity)
         {
             if (
                 BoxCollider.CollidesWithAny(ref velocity, out CollisionResult res) &&
-                (res.Collider.PhysicsLayer & (int)Physics.PhysicsLayer.Level) != 0)
+                IsCollidable((Physics.PhysicsLayer)res.Collider.PhysicsLayer))
             { 
                 Position += velocity;
             }

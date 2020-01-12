@@ -22,7 +22,7 @@ namespace Cirrus.TutorialQuest.World.Objects
 
         private SlimeController controller;
 
-        public override Physics.PhysicsLayer PhysicsLayer => Physics.PhysicsLayer.Enemy;
+        public override Physics.PhysicsLayer PhysicsLayer => Physics.PhysicsLayer.Enemy | Physics.PhysicsLayer.Object;
 
         public Slime(
             Vector2 position, 
@@ -40,7 +40,7 @@ namespace Cirrus.TutorialQuest.World.Objects
         {
             base.OnAddedToScene();
 
-            spriteController.Play(AvatarSpriteController.IdleForwardAnimation);
+            spriteController.Play(SlimeSpriteController.IdleForwardAnimation);
 
             controller.Avatar =
                 Scene.Entities.EntitiesOfType<Avatar>().FirstOrDefault() != null ?
@@ -59,22 +59,22 @@ namespace Cirrus.TutorialQuest.World.Objects
             if (Axes.X < 0)
             {
                 Direction = Direction.Left;
-                spriteController.Play(AvatarSpriteController.WalkLeftAnimation);
+                spriteController.Play(SlimeSpriteController.WalkSideAnimation);
             }
             else if (Axes.X > 0)
             {
                 Direction = Direction.Right;
-                spriteController.Play(AvatarSpriteController.WalkRightAnimation);
+                spriteController.Play(SlimeSpriteController.WalkSideAnimation);
             }
             else if (Axes.Y < 0)
             {
                 Direction = Direction.Down;
-                spriteController.Play(AvatarSpriteController.WalkBackwardAnimation);
+                spriteController.Play(SlimeSpriteController.WalkBackwardAnimation);
             }
             else if (Axes.Y > 0)
             {
                 Direction = Direction.Up;
-                spriteController.Play(AvatarSpriteController.WalkForwardAnimation);
+                spriteController.Play(SlimeSpriteController.WalkForwardAnimation);
             }
 
             if (Axes.IsAprroximately(Vector2.Zero))
@@ -82,19 +82,16 @@ namespace Cirrus.TutorialQuest.World.Objects
                 switch (Direction)
                 {
                     case Direction.Left:
-                        spriteController.Play(AvatarSpriteController.IdleLeftAnimation);
-                        break;
-
                     case Direction.Right:
-                        spriteController.Play(AvatarSpriteController.IdleRightAnimation);
+                        spriteController.Play(SlimeSpriteController.IdleSideAnimation);
                         break;
 
                     case Direction.Up:
-                        spriteController.Play(AvatarSpriteController.IdleForwardAnimation);
+                        spriteController.Play(SlimeSpriteController.IdleForwardAnimation);
                         break;
 
                     case Direction.Down:
-                        spriteController.Play(AvatarSpriteController.IdleBackwardAnimation);
+                        spriteController.Play(SlimeSpriteController.IdleBackwardAnimation);
                         break;
                 }
             }

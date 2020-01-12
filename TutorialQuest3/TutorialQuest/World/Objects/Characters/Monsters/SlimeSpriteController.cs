@@ -18,17 +18,13 @@ namespace Cirrus.TutorialQuest.World.Objects
     {
         public const string WalkForwardAnimation = "WalkForward";
 
-        public const string WalkLeftAnimation = "WalkLeft";
-
-        public const string WalkRightAnimation = "WalkRight";
+        public const string WalkSideAnimation = "WalkSide";
 
         public const string WalkBackwardAnimation = "WalkBackward";
 
         public const string IdleForwardAnimation = "IdleForward";
 
-        public const string IdleLeftAnimation = "IdleLeft";
-
-        public const string IdleRightAnimation = "IdleRight";
+        public const string IdleSideAnimation = "IdleSide";
 
         public const string IdleBackwardAnimation = "IdleBackward";
 
@@ -53,29 +49,29 @@ namespace Cirrus.TutorialQuest.World.Objects
                 sprites[1]
             });
 
-            SpriteAnimator.AddAnimation(WalkLeftAnimation, new[]
+            SpriteAnimator.AddAnimation(WalkSideAnimation, new[]
             {
                 sprites[3],
                 sprites[4],
                 sprites[5]
             });
 
-            SpriteAnimator.AddAnimation(IdleLeftAnimation, new[]
+            SpriteAnimator.AddAnimation(IdleSideAnimation, new[]
             {
                 sprites[4]
             });
 
-            SpriteAnimator.AddAnimation(WalkRightAnimation, new[]
-            {
-                sprites[6],
-                sprites[7],
-                sprites[8]
-            });
+            //SpriteAnimator.AddAnimation(WalkRightAnimation, new[]
+            //{
+            //    sprites[6],
+            //    sprites[7],
+            //    sprites[8]
+            //});
 
-            SpriteAnimator.AddAnimation(IdleRightAnimation, new[]
-            {
-                sprites[7],
-            });
+            //SpriteAnimator.AddAnimation(IdleRightAnimation, new[]
+            //{
+            //    sprites[7],
+            //});
 
             SpriteAnimator.AddAnimation(WalkBackwardAnimation, new[]
             {

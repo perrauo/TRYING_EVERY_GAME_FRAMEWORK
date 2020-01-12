@@ -21,7 +21,7 @@ namespace Cirrus.TutorialQuest.World.Objects
 
         public override SpriteController SpriteController => spriteController;
 
-        public override Physics.PhysicsLayer PhysicsLayer => Physics.PhysicsLayer.Avatar;
+        public override Physics.PhysicsLayer PhysicsLayer => Physics.PhysicsLayer.Avatar | Physics.PhysicsLayer.Object;
 
         public Avatar(Vector2 position, string name = "Avatar") : base(position, name)
         {
@@ -50,34 +50,37 @@ namespace Cirrus.TutorialQuest.World.Objects
             if (Axes.X < 0)
             {
                 Direction = Direction.Left;
-                spriteController.Play(AvatarSpriteController.WalkLeftAnimation);
+                SpriteController.SpriteAnimator.FlipX = false;
+                spriteController.Play(AvatarSpriteController.WalkSideAnimation);
             }
             else if(Axes.X > 0)
             {
+                SpriteController.SpriteAnimator.FlipX = true;
                 Direction = Direction.Right;
-                spriteController.Play(AvatarSpriteController.WalkRightAnimation);
+                spriteController.Play(AvatarSpriteController.WalkSideAnimation);
             }
             else if(Axes.Y < 0)
             {
+                SpriteController.SpriteAnimator.FlipX = false;
                 Direction = Direction.Down;
                 spriteController.Play(AvatarSpriteController.WalkBackwardAnimation);
             }
             else if(Axes.Y > 0)
             {
+                SpriteController.SpriteAnimator.FlipX = false;
                 Direction = Direction.Up;
                 spriteController.Play(AvatarSpriteController.WalkForwardAnimation);
             }
 
             if(Axes.IsAprroximately(Vector2.Zero))
             {
-                switch(Direction)
+                Axes = Vector2.Zero;
+
+                switch (Direction)
                 {
                     case Direction.Left:
-                        spriteController.Play(AvatarSpriteController.IdleLeftAnimation);
-                        break;
-
                     case Direction.Right:
-                        spriteController.Play(AvatarSpriteController.IdleRightAnimation);
+                        spriteController.Play(AvatarSpriteController.IdleSideAnimation);
                         break;
 
                     case Direction.Up:
@@ -88,6 +91,25 @@ namespace Cirrus.TutorialQuest.World.Objects
                         spriteController.Play(AvatarSpriteController.IdleBackwardAnimation);
                         break;
                 }
+            }
+        }
+
+        public void Attack()
+        {
+            Attack attack = Scene.AddEntity(new Attack(AttackType.Slash, Direction));
+            attack.SetParent(Transform);
+
+            switch (Direction)
+            {
+                case Direction.Left:
+                case Direction.Right:
+                    spriteController.Play(AvatarSpriteController.AttackSideAnimation, SpriteAnimator.LoopMode.Once);
+                    break;
+
+                case Direction.Up:
+                case Direction.Down:
+                    spriteController.Play(AvatarSpriteController.AttackForwardAnimation, SpriteAnimator.LoopMode.Once);
+                    break;
             }
         }
     }

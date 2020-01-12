@@ -31,19 +31,19 @@ namespace Cirrus.TutorialQuest.World.Objects
     {
         public const string WalkForwardAnimation = "WalkForward";
 
-        public const string WalkLeftAnimation = "WalkLeft";
-
-        public const string WalkRightAnimation = "WalkRight";
+        public const string WalkSideAnimation = "WalkSide";
 
         public const string WalkBackwardAnimation = "WalkBackward";
 
         public const string IdleForwardAnimation = "IdleForward";
 
-        public const string IdleLeftAnimation = "IdleLeft";
-
-        public const string IdleRightAnimation = "IdleRight";
+        public const string IdleSideAnimation = "IdleSide";
 
         public const string IdleBackwardAnimation = "IdleBackward";
+
+        public const string AttackForwardAnimation = "AttackForward";
+
+        public const string AttackSideAnimation = "AttackSide";
 
         public AvatarSpriteController(SpriteAnimator spriteAnimator) : base(spriteAnimator)
         {
@@ -68,49 +68,62 @@ namespace Cirrus.TutorialQuest.World.Objects
                 sprites[1]
             });
 
-            SpriteAnimator.AddAnimation(WalkLeftAnimation, new[]
+            SpriteAnimator.AddAnimation(WalkSideAnimation, new[]
             {
                 sprites[3],
                 sprites[4],
                 sprites[5]
             });
 
-            SpriteAnimator.AddAnimation(IdleLeftAnimation, new[]
+            SpriteAnimator.AddAnimation(IdleSideAnimation, new[]
             {
                 sprites[4]
             });
 
-            SpriteAnimator.AddAnimation(WalkRightAnimation, new[]
+            SpriteAnimator.AddAnimation(WalkBackwardAnimation, new[]
             {
                 sprites[6],
                 sprites[7],
                 sprites[8]
             });
 
-            SpriteAnimator.AddAnimation(IdleRightAnimation, new[]
-            {
-                sprites[7],
-            });
-
-            SpriteAnimator.AddAnimation(WalkBackwardAnimation, new[]
-            {
-                sprites[9],
-                sprites[10],
-                sprites[11]
-            });
-
             SpriteAnimator.AddAnimation(IdleBackwardAnimation, new[]
             {
-                sprites[10]
+                sprites[7]
+            });
+
+            SpriteAnimator.AddAnimation(AttackForwardAnimation, new[]
+{
+                sprites[36],
+                sprites[37],
+                sprites[38],
+                sprites[39],
+                sprites[40]
+            });
+
+            SpriteAnimator.AddAnimation(AttackSideAnimation, new[]
+            {
+                sprites[48],
+                sprites[49],
+                sprites[50],
+                sprites[51],
+                sprites[52]
             });
         }
 
-        public void Play(string animation, SpriteAnimator.LoopMode loopMode= SpriteAnimator.LoopMode.Loop)
+        public override void Play(string animation, SpriteAnimator.LoopMode loopMode= SpriteAnimator.LoopMode.Loop)
         {
             if (SpriteAnimator.IsAnimationActive(animation))
                 return;
 
-            SpriteAnimator.Play(animation, loopMode);
+            if (SpriteAnimator.IsAnimationActive(AttackForwardAnimation) ||
+                SpriteAnimator.IsAnimationActive(AttackSideAnimation))
+            {
+                if (SpriteAnimator.IsRunning)
+                    return;
+            }
+
+            base.Play(animation, loopMode);
         }
     }
 }

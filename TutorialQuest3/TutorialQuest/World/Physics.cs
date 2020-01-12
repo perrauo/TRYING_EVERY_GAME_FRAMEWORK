@@ -12,8 +12,8 @@ namespace Cirrus.TutorialQuest.World
         {
             Level = 1 << 0,
             Object = 1 << 1, 
-            Enemy = Object | 1 << 2,
-            Avatar = Object | 1 << 3
+            Enemy =  1 << 2,
+            Avatar = 1 << 3
         }
     }
 }

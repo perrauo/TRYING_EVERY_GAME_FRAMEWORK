@@ -58,6 +58,10 @@ namespace Cirrus.TutorialQuest.World.Objects
                 avatar.Axes.Y = 0;
             }
 
+            if (scheme.IsAttackPresssed)
+            {
+                avatar.Attack();
+            }
         }
 
     }

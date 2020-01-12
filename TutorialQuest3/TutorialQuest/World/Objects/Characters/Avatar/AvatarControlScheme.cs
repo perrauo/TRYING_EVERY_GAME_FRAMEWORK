@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using Nez;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace Cirrus.TutorialQuest.World.Objects
         public bool IsUpHeld => Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W);
 
         public bool IsDownHeld => Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.S);
+
+        public bool IsAttackPresssed => Input.IsKeyPressed(Keys.Space);
     }
 }
