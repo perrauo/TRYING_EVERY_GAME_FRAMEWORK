@@ -23,6 +23,8 @@ namespace Cirrus.TutorialQuest.World.Objects
 
         public override Physics.PhysicsLayer PhysicsLayer => Physics.PhysicsLayer.Avatar | Physics.PhysicsLayer.Object;
 
+        private const int AttackRange = 8;
+
         public Avatar(Vector2 position, string name = "Avatar") : base(position, name)
         {
             controller = AddComponent(new AvatarController(this));
@@ -96,7 +98,12 @@ namespace Cirrus.TutorialQuest.World.Objects
 
         public void Attack()
         {
-            Attack attack = Scene.AddEntity(new Attack(AttackType.Slash, Direction));
+            Attack attack = Scene.AddEntity(
+                new Attack(
+                    AttackType.Slash, 
+                    Direction, 
+                    AttackRange));
+
             attack.SetParent(Transform);
 
             switch (Direction)

@@ -67,5 +67,10 @@ namespace Cirrus.TutorialQuest.World.Objects
                 sprites[39],
             });
         }
+
+        public override void Play(string animation, SpriteAnimator.LoopMode loopMode = SpriteAnimator.LoopMode.Loop)
+        {
+            base.Play(animation, SpriteAnimator.LoopMode.Once);
+        }
     }
 }

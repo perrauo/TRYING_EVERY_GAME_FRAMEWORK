@@ -42,10 +42,7 @@ namespace Cirrus.TutorialQuest.World.Objects
 
             spriteController.Play(SlimeSpriteController.IdleForwardAnimation);
 
-            controller.Avatar =
-                Scene.Entities.EntitiesOfType<Avatar>().FirstOrDefault() != null ?
-                (Avatar) Scene.Entities.EntitiesOfType<Avatar>().FirstOrDefault() :
-                null;
+            controller.Avatar = Scene.Entities.EntitiesOfType<Avatar>().FirstOrDefault();
         }
 
         public override void Update()

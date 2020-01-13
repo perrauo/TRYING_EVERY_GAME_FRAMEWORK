@@ -152,12 +152,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nez-master\Nez.Portable\Nez.csproj">
-      <Project>{148fe51d-5c1a-401b-ad31-b153eb745483}</Project>
-      <Name>Nez</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll" />
     <Content Include="bin\DesktopGL\AnyCPU\Debug\Nez.dll" />
     <Content Include="bin\DesktopGL\AnyCPU\Debug\Nez.pdb" />
@@ -196,6 +190,12 @@
   <ItemGroup>
     <Folder Include="bin\DesktopGL\AnyCPU\Release\" />
     <Folder Include="bin\DesktopGL\Content\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Nez\Nez.Portable\Nez.csproj">
+      <Project>{76a9708d-a6b2-4aa1-ac16-3469cd51da87}</Project>
+      <Name>Nez</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

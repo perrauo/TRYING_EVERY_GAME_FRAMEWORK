@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorialQuest", "TutorialQuest\TutorialQuest.csproj", "{F55B09B1-77DA-4655-952F-8E5115E3B54C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nez", "Nez-master\Nez.Portable\Nez.csproj", "{148FE51D-5C1A-401B-AD31-B153EB745483}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nez", "..\..\Nez\Nez.Portable\Nez.csproj", "{76A9708D-A6B2-4AA1-AC16-3469CD51DA87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{F55B09B1-77DA-4655-952F-8E5115E3B54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F55B09B1-77DA-4655-952F-8E5115E3B54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F55B09B1-77DA-4655-952F-8E5115E3B54C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{148FE51D-5C1A-401B-AD31-B153EB745483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{148FE51D-5C1A-401B-AD31-B153EB745483}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{148FE51D-5C1A-401B-AD31-B153EB745483}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{148FE51D-5C1A-401B-AD31-B153EB745483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76A9708D-A6B2-4AA1-AC16-3469CD51DA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76A9708D-A6B2-4AA1-AC16-3469CD51DA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76A9708D-A6B2-4AA1-AC16-3469CD51DA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76A9708D-A6B2-4AA1-AC16-3469CD51DA87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
