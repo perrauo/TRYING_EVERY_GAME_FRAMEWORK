@@ -9,7 +9,6 @@ export default {
     //  Our games entry point (edit as required)
     input: [
         './src/game.ts',
-        "./assets/**/*"
     ],
 
     //  Where the build file is to be generated.
