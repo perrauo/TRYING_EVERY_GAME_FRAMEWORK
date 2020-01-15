@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cirrus.TutorialQuest.World.Objects
 {
-    class AvatarControlScheme
+    public class AvatarControlScheme
     {
         public bool IsLeftHeld => Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A);
 

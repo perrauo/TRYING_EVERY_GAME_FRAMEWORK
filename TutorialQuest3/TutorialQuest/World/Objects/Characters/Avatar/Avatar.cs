@@ -102,7 +102,8 @@ namespace Cirrus.TutorialQuest.World.Objects
                 new Attack(
                     AttackType.Slash, 
                     Direction, 
-                    AttackRange));
+                    AttackRange,
+                    new Vector2Int(14,15)));
 
             attack.SetParent(Transform);
 

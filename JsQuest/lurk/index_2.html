@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=0" />
+    <title>LURK</title>
+    <script src="js/phaser.min.js"></script>
+    <script src="js/title.js"></script>
+    <script src="js/items.js"></script>
+    <script src="js/enemies.js"></script>
+    <script src="js/villagers.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/gameover.js"></script>
+    <script src="js/main.js"></script>
+</head>
+
+
+<body style="margin: 0 0 0 0; padding: 0 0 0 0;">
+    <div style="height: 1800px; margin-left: auto; margin-right: auto; margin-top: 20px; background:url('html_files/GB.png'); background-position: center; background-repeat:no-repeat">
+        <div id="gameboy" style="margin-left: auto; margin-right: auto; padding-top: 200px; width: 640px;"></div>
+        <a onclick="Game.onButtonUp()"      style="position: absolute; top: 1100px; left:  150px; width: 100px; height: 100px; background-color: white">  UP </a>
+        <a onclick="Game.onButtonLeft()"    style="position: absolute; top: 1200px; left:  50px; width: 100px; height: 100px; background-color: white">LEFT </a>
+        <a onclick="Game.onButtonRight()"   style="position: absolute; top: 1200px; left:  250px; width: 100px; height: 100px; background-color: white">RIGHT</a>
+        <a onclick="Game.onButtonDown()"    style="position: absolute; top: 1300px; left:  150px; width: 100px; height: 100px; background-color: white">DOWN </a>
+        <a onclick="Game.onButtonA()"       style="position: absolute; top: 1150px; right: 50px; width: 100px; height: 100px; background-color: white">  A  </a>
+        <a onclick="Game.onButtonB()"       style="position: absolute; top: 1180px; right: 200px; width: 100px; height: 100px; background-color: white">  B  </a>
+    </div>
+</body>
+
+</html>

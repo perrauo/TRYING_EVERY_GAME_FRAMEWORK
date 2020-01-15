@@ -1,0 +1,5 @@
+-lib heaps
+-js hello.js
+-D analyzer-optimize
+-main Main
+-debug

@@ -18,10 +18,8 @@ namespace Cirrus.TutorialQuest.World.Objects
     }
 
     // TODO exercise make a projectile
-    public class Attack : Entity, ITriggerListener
+    public class Attack : Entity
     {
-        private Vector2Int size = new Vector2Int(16, 16);
-
         private AttackSpriteController spriteController;
 
         private BoxCollider collider;
@@ -33,7 +31,8 @@ namespace Cirrus.TutorialQuest.World.Objects
         public Attack(
             AttackType type,
             Direction direction,
-            int range)
+            int range,
+            Vector2Int size)
         {
             this.type = type;
 
@@ -50,18 +49,17 @@ namespace Cirrus.TutorialQuest.World.Objects
                 case Direction.Down:
                     LocalPosition = new Vector2Int(0, range) * (direction == Direction.Up ? -1 : 1);
                     break;
+            }
 
-            }   
+            collider = AddComponent(new BoxCollider(size.X, size.Y));
+
+            collider.IsTrigger = true;
 
             spriteController =
                 AddComponent(new AttackSpriteController(
                 AddComponent(new SpriteAnimator())));
 
             spriteController.SpriteAnimator.FlipX = direction == Direction.Right;
-
-            collider = new BoxCollider(size.X, size.Y);
-
-            collider.IsTrigger = true;
         }
 
         public override void OnAddedToScene()
@@ -76,7 +74,7 @@ namespace Cirrus.TutorialQuest.World.Objects
                         direction == Direction.Right ?
                             AttackSpriteController.SlashSide :
                             AttackSpriteController.SlashForward, 
-                        SpriteAnimator.LoopMode.Once);
+                        SpriteAnimator.LoopMode.ClampForever);
                     break;
 
                 case AttackType.Bite:
@@ -85,11 +83,10 @@ namespace Cirrus.TutorialQuest.World.Objects
                         direction == Direction.Right ?
                             AttackSpriteController.BiteSideAnimation :
                             AttackSpriteController.BiteForwardAnimation,
-                        SpriteAnimator.LoopMode.Once);
+                        SpriteAnimator.LoopMode.ClampForever);
 
                     break;
             }
-
 
             Core.Schedule(
                 spriteController.SpriteAnimator.CurrentAnimation.Time(), 
@@ -99,16 +96,6 @@ namespace Cirrus.TutorialQuest.World.Objects
         public void OnTimeout(ITimer timer)
         {
             Destroy();
-        }
-
-        public void OnTriggerEnter(Collider other, Collider local)
-        {
-            Console.Write("");
-        }
-
-        public void OnTriggerExit(Collider other, Collider local)
-        {
-            
         }
     }
 }

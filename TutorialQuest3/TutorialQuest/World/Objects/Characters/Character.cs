@@ -21,6 +21,8 @@ namespace Cirrus.TutorialQuest.World.Objects
                 base(
                     position,
                     name)
-        { }
+        {
+            
+        }
     }
 }
