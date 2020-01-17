@@ -80,11 +80,11 @@ namespace TutorialQuest
             base.DebugRender(batcher);
 
 
-            Debug.DrawText(
-                Graphics.Instance.BitmapFont,
-                "Hello World",
-                Screen.Center,
-                Color.White);
+            //Debug.DrawText(
+            //    Graphics.Instance.BitmapFont,
+            //    "Hello World",
+            //    Screen.Center,
+            //    Color.White);
 
             //batcher.DrawString("Hello World", Color.White);
         }

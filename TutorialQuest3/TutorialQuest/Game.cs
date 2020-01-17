@@ -46,6 +46,12 @@ namespace TutorialQuest
             {
                 DebugRenderEnabled = !DebugRenderEnabled;
             }
+
+            Debug.DrawText(
+                Graphics.Instance.BitmapFont,
+                "Hello World",
+                Screen.Center,
+                Color.White);
         }
     }
 }
