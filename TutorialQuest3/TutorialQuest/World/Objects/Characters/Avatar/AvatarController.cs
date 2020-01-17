@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 using Nez;
 
-namespace Cirrus.TutorialQuest.World.Objects
+namespace TutorialQuest
 {
     public class AvatarController : Component, IUpdatable
     {

@@ -14,5 +14,10 @@ namespace Cirrus.Nez
         {
             return new Vector2(obj.X, obj.Y);
         }
+
+        public static string FullName(this TmxObject obj)
+        {
+            return obj.Type + "/" + obj.Name;
+        }
     }
 }

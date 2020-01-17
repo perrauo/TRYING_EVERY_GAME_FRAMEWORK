@@ -47,11 +47,14 @@
     <Compile Include="Cirrus\Nez\Animations\SpriteAnimation.cs" />
     <Compile Include="Cirrus\Nez\Entities\EntityList.cs" />
     <Compile Include="Cirrus\Nez\TiledExtension.cs" />
+    <Compile Include="Cirrus\Nez\Utils.cs" />
     <Compile Include="Cirrus\Numeric\Vector2Extension.cs" />
     <Compile Include="Cirrus\Numeric\Vector2Int.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\HUD.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="World\Level.cs" />
     <Compile Include="World\Objects\BaseObject.cs" />
     <Compile Include="World\Objects\Characters\Attacks\Attack.cs" />

@@ -1,17 +1,20 @@
-﻿using Cirrus.TutorialQuest.World;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using Nez;
 
-namespace Cirrus.TutorialQuest
+namespace TutorialQuest
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class Game : Core
     {
+        public const int DesignWidth = 512;
+
+        public const int DesignHeight = 256;
+
         public Game() : base() { }
 
         /// <summary>
@@ -22,17 +25,17 @@ namespace Cirrus.TutorialQuest
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
 
             Scene = Scene.CreateWithDefaultRenderer(Color.CornflowerBlue);
 
-            Scene.SetDesignResolution(512, 256, Scene.SceneResolutionPolicy.ShowAllPixelPerfect);
+            Scene.SetDesignResolution(DesignWidth, DesignHeight, Scene.SceneResolutionPolicy.ShowAllPixelPerfect);
 
-            Screen.SetSize(512 * 3, 256 * 3);
+            Screen.SetSize(DesignWidth * 3, DesignHeight * 3);
 
-            Scene.AddEntity(new Level("Level1"));
+            //Scene.AddEntity(new Level("Level1"));
+
+            //Scene.AddEntity(new HUD());
         }
 
         protected override void Update(GameTime time)
@@ -44,6 +47,5 @@ namespace Cirrus.TutorialQuest
                 DebugRenderEnabled = !DebugRenderEnabled;
             }
         }
-
     }
 }

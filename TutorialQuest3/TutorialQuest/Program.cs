@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cirrus.TutorialQuest
+namespace TutorialQuest
 {
     /// <summary>
     /// The main class.

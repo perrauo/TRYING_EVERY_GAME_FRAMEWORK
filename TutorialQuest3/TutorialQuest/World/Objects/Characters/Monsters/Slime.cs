@@ -10,7 +10,7 @@ using Nez;
 using Nez.Sprites;
 using Cirrus.Numeric;
 
-namespace Cirrus.TutorialQuest.World.Objects
+namespace TutorialQuest
 {
     public class Slime : Character
     {
@@ -26,7 +26,7 @@ namespace Cirrus.TutorialQuest.World.Objects
 
         public Slime(
             Vector2 position, 
-            string name = "") : 
+            string name) : 
                 base(position, name)
         {
             spriteController =
@@ -49,7 +49,7 @@ namespace Cirrus.TutorialQuest.World.Objects
         {
             base.Update();
 
-            Velocity = Axes * Speed;
+            MoveVelocity = Axes * Speed;
 
             MoveAndCollide(Velocity);
 

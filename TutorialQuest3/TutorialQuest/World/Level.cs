@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cirrus.Numeric;
-using Cirrus.TutorialQuest.World.Objects;
+
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Tiled;
 using Cirrus.Nez;
 
-namespace Cirrus.TutorialQuest.World
+namespace TutorialQuest
 {
     public class Level : Entity
     {
@@ -43,7 +43,7 @@ namespace Cirrus.TutorialQuest.World
 
             tileMapRenderer.SetLayersToRender(new string[] { "Foreground", "Background" });
 
-            tileMapRenderer.PhysicsLayer = (int) Physics.PhysicsLayer.Level;
+            tileMapRenderer.PhysicsLayer = (int) Physics.PhysicsLayer.Collidable;
 
             tileMapRenderer.CollisionLayer = tileMap.GetLayer<TmxLayer>("Collision");
 
@@ -65,10 +65,29 @@ namespace Cirrus.TutorialQuest.World
                         break;
 
                     case SlimeObjectType:
-                        Slime slime = Scene.AddEntity(new Slime(obj.Position() + TiledObjectOffset));
+                        Slime slime = Scene.AddEntity(
+                            new Slime(
+                            obj.Position() + TiledObjectOffset,
+                            obj.FullName()));
+
                         break;
                 }
-            }            
+            }
         }
+
+        public override void DebugRender(Batcher batcher)
+        {
+            base.DebugRender(batcher);
+
+
+            Debug.DrawText(
+                Graphics.Instance.BitmapFont,
+                "Hello World",
+                Screen.Center,
+                Color.White);
+
+            //batcher.DrawString("Hello World", Color.White);
+        }
+
     }
 }

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Cirrus.TutorialQuest.World.Objects;
 using Microsoft.Xna.Framework;
 
-namespace Cirrus.TutorialQuest.World.Objects
+namespace TutorialQuest
 {
     public abstract class Character : BaseObject
     {

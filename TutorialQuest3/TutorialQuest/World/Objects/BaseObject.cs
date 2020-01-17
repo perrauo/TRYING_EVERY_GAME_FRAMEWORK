@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cirrus.Nez;
 using Cirrus.Numeric;
 using Microsoft.Xna.Framework;
 using Nez;
 
-namespace Cirrus.TutorialQuest.World.Objects
+namespace TutorialQuest
 {
     public abstract class BaseObject : Entity
     {
@@ -15,70 +16,85 @@ namespace Cirrus.TutorialQuest.World.Objects
             
         public abstract SpriteController SpriteController { get; }
 
-        public BoxCollider BoxCollider { get; private set; }
-
-        public abstract Physics.PhysicsLayer PhysicsLayer { get; }
+        // Collider
 
         public Vector2 ColliderPosition = new Vector2(0, 0);
 
         public Vector2 ColliderSize = new Vector2(16, 4);
 
-        public Vector2 Velocity { get; set; } = new Vector2(0, 0);
+        public BoxCollider Collider { get; private set; }
+
+        // HurtBox
+
+        public Vector2Int HurtBoxPosition = new Vector2Int(0, 0);
+
+        public Vector2Int HurtBoxSize = new Vector2Int(16, 16);
+
+        public BoxCollider HurtBoxCollider { get; private set; }
+
+        public abstract Physics.PhysicsLayer PhysicsLayer { get; }
+
+        public Vector2 KnockbackVelocity = new Vector2(0, 0);
+
+        public float KnockbackVelocityDecelerationAmount = 0.4f;
+
+        public Vector2 MoveVelocity = new Vector2(0, 0);
+
+        public Vector2 Velocity => KnockbackVelocity + MoveVelocity;
 
         public BaseObject(Vector2 position, string name = "") : base(name)
         {
             Position = position;
 
-            BoxCollider = AddComponent(
+            Collider = AddComponent(
                 new BoxCollider(
                     ColliderPosition.X,
                     ColliderPosition.Y,
                     ColliderSize.X,
                     ColliderSize.Y));
 
-            BoxCollider.PhysicsLayer = (int)PhysicsLayer;
+            Collider.CollidesWithLayers = (int)Physics.PhysicsLayer.Collidable;
+            Collider.PhysicsLayer = (int)Physics.PhysicsLayer.Collidable;
+
+            HurtBoxCollider = AddComponent(
+            new BoxCollider(
+                HurtBoxPosition.X,
+                HurtBoxPosition.Y,
+                HurtBoxSize.X,
+                HurtBoxSize.Y));     
+            HurtBoxCollider.PhysicsLayer = (int)PhysicsLayer;
         }
 
         public override void OnAddedToScene()
         {
             base.OnAddedToScene();
 
-            BoxCollider.LocalOffset = new Vector2Int(0, SpriteController.SpriteSize.Y / 3);
+            HurtBoxCollider.LocalOffset = Vector2Int.Zero;
+            Collider.LocalOffset = new Vector2Int(0, SpriteController.SpriteSize.Y / 3);
         }
-    
-        public bool IsCollidable(Physics.PhysicsLayer layers)
+
+        public virtual void OnAttack(Attack attack)
         {
-            return 
-                (layers & Physics.PhysicsLayer.Level) != 0 ||
-                (layers & Physics.PhysicsLayer.Object) != 0;
+            KnockbackVelocity += attack.Direction.Vector() * attack.Strength;
+            SpriteController.Blink();
         }
-
-
 
         public void MoveAndCollide(Vector2 velocity)
         {
-            if (
-                BoxCollider.CollidesWithAny(ref velocity, out CollisionResult res) &&
-                IsCollidable((Physics.PhysicsLayer)res.Collider.PhysicsLayer))
-            { 
-                Position += velocity;
-            }
-            else
-            {
-                Position += Velocity;
-            }
+            Collider.CollidesWithAny(ref velocity, out CollisionResult res);
+            Position += velocity;           
         }
 
         public override void Update()
         {
             base.Update();
 
-            SpriteController.SpriteAnimator.LayerDepth = 1 - (Position.Y / 1000);
-        }
+            KnockbackVelocity = Vector2.Lerp(
+                KnockbackVelocity, 
+                Vector2.Zero, 
+                KnockbackVelocityDecelerationAmount);
 
-        public override void DebugRender(Batcher batcher)
-        {
-            base.DebugRender(batcher);
+            SpriteController.SpriteAnimator.LayerDepth = 1 - (Position.Y / 1000);
         }
     }
 }

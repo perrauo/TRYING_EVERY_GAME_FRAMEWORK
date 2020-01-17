@@ -1,11 +1,11 @@
 ﻿
 using Cirrus.Numeric;
-using Cirrus.TutorialQuest.World.Objects;
+
 using Microsoft.Xna.Framework;
 using Nez;
 
 
-namespace Cirrus.TutorialQuest.World.Objects
+namespace TutorialQuest
 {
     public class SlimeController : Component, IUpdatable
     {

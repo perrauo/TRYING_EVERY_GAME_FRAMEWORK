@@ -36,10 +36,8 @@ export class Avatar extends BaseObject {
                 frames: [0, 1, 2]
             })
         })
-
-        
-        
-
+       
+        64524
         // this.anims.animationManager.create(
         // Phaser.Typesation
         // {

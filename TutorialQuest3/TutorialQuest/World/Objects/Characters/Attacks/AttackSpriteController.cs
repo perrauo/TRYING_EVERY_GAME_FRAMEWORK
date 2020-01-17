@@ -14,7 +14,7 @@ using Nez.Textures;
 using Microsoft.Xna.Framework;
 
 
-namespace Cirrus.TutorialQuest.World.Objects
+namespace TutorialQuest
 {
     public class AttackSpriteController : SpriteController
     {

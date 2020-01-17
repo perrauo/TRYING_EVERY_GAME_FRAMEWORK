@@ -9,7 +9,7 @@ using Nez;
 using Nez.Sprites;
 using Nez.Timers;
 
-namespace Cirrus.TutorialQuest.World.Objects
+namespace TutorialQuest
 {
     public enum AttackType
     {
@@ -22,21 +22,29 @@ namespace Cirrus.TutorialQuest.World.Objects
     {
         private AttackSpriteController spriteController;
 
-        private BoxCollider collider;
+        private BoxCollider hitBox;
 
-        private AttackType type;
+        public AttackType Type { get; private set; }
 
-        private Direction direction;
+        public Direction Direction { get; private set; }
+
+        private List<Collider> hits = new List<Collider>();
+
+        public float Strength { get; private set; }
 
         public Attack(
             AttackType type,
             Direction direction,
+            float strength,
             int range,
-            Vector2Int size)
+            Vector2Int size,
+            Physics.PhysicsLayer layers)
         {
-            this.type = type;
+            this.Type = type;
 
-            this.direction = direction;
+            this.Direction = direction;
+
+            this.Strength = strength;
 
             switch (direction)
             {
@@ -47,13 +55,13 @@ namespace Cirrus.TutorialQuest.World.Objects
 
                 case Direction.Up:
                 case Direction.Down:
-                    LocalPosition = new Vector2Int(0, range) * (direction == Direction.Up ? -1 : 1);
+                    LocalPosition = new Vector2Int(0, range) * (direction == Direction.Down ? -1 : 1);
                     break;
             }
 
-            collider = AddComponent(new BoxCollider(size.X, size.Y));
-
-            collider.IsTrigger = true;
+            hitBox = AddComponent(new BoxCollider(size.X, size.Y));
+            hitBox.CollidesWithLayers = (int) layers;
+            hitBox.PhysicsLayer = (int)Physics.PhysicsLayer.None;
 
             spriteController =
                 AddComponent(new AttackSpriteController(
@@ -66,12 +74,12 @@ namespace Cirrus.TutorialQuest.World.Objects
         {
             base.OnAddedToScene();
 
-            switch (type)
+            switch (Type)
             {
                 case AttackType.Slash:
                     spriteController.Play(
-                        direction == Direction.Left ||
-                        direction == Direction.Right ?
+                        Direction == Direction.Left ||
+                        Direction == Direction.Right ?
                             AttackSpriteController.SlashSide :
                             AttackSpriteController.SlashForward, 
                         SpriteAnimator.LoopMode.ClampForever);
@@ -79,8 +87,8 @@ namespace Cirrus.TutorialQuest.World.Objects
 
                 case AttackType.Bite:
                     spriteController.Play(
-                        direction == Direction.Left ||
-                        direction == Direction.Right ?
+                        Direction == Direction.Left ||
+                        Direction == Direction.Right ?
                             AttackSpriteController.BiteSideAnimation :
                             AttackSpriteController.BiteForwardAnimation,
                         SpriteAnimator.LoopMode.ClampForever);
@@ -90,7 +98,21 @@ namespace Cirrus.TutorialQuest.World.Objects
 
             Core.Schedule(
                 spriteController.SpriteAnimator.CurrentAnimation.Time(), 
-                new Action<ITimer>(OnTimeout));
+                OnTimeout);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            if(hitBox.CollidesWithAny(out CollisionResult hit))
+            {
+                if (hits.Contains(hit.Collider))
+                    return;
+
+                hits.Add(hit.Collider);
+                ((BaseObject)hit.Collider.Entity).OnAttack(this);
+            }
         }
 
         public void OnTimeout(ITimer timer)

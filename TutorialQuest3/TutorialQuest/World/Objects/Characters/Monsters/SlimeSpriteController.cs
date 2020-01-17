@@ -12,7 +12,7 @@ using Nez;
 using Nez.Sprites;
 using Nez.Textures;
 
-namespace Cirrus.TutorialQuest.World.Objects
+namespace TutorialQuest
 {
     public class SlimeSpriteController : SpriteController
     {
@@ -61,18 +61,6 @@ namespace Cirrus.TutorialQuest.World.Objects
                 sprites[4]
             });
 
-            //SpriteAnimator.AddAnimation(WalkRightAnimation, new[]
-            //{
-            //    sprites[6],
-            //    sprites[7],
-            //    sprites[8]
-            //});
-
-            //SpriteAnimator.AddAnimation(IdleRightAnimation, new[]
-            //{
-            //    sprites[7],
-            //});
-
             SpriteAnimator.AddAnimation(WalkBackwardAnimation, new[]
             {
                 sprites[9],
@@ -86,7 +74,7 @@ namespace Cirrus.TutorialQuest.World.Objects
             });
         }
 
-        public void Play(string animation, SpriteAnimator.LoopMode loopMode = SpriteAnimator.LoopMode.Loop)
+        public override void Play(string animation, SpriteAnimator.LoopMode loopMode = SpriteAnimator.LoopMode.Loop)
         {
             if (SpriteAnimator.IsAnimationActive(animation))
                 return;

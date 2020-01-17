@@ -11,7 +11,7 @@ using Nez.Sprites;
 using Microsoft.Xna.Framework.Graphics;
 using Nez.Textures;
 
-namespace Cirrus.TutorialQuest.World.Objects
+namespace TutorialQuest
 {
     public class Avatar : Character
     {
@@ -24,6 +24,8 @@ namespace Cirrus.TutorialQuest.World.Objects
         public override Physics.PhysicsLayer PhysicsLayer => Physics.PhysicsLayer.Avatar | Physics.PhysicsLayer.Object;
 
         private const int AttackRange = 8;
+
+        private const float AttackStrength = 5f;
 
         public Avatar(Vector2 position, string name = "Avatar") : base(position, name)
         {
@@ -45,7 +47,7 @@ namespace Cirrus.TutorialQuest.World.Objects
         {
             base.Update();
 
-            Velocity = Axes* Speed;
+            MoveVelocity = Axes* Speed;
 
             MoveAndCollide(Velocity);
 
@@ -101,9 +103,11 @@ namespace Cirrus.TutorialQuest.World.Objects
             Attack attack = Scene.AddEntity(
                 new Attack(
                     AttackType.Slash, 
-                    Direction, 
+                    Direction,
+                    AttackStrength,
                     AttackRange,
-                    new Vector2Int(14,15)));
+                    new Vector2Int(16,16),
+                    Physics.PhysicsLayer.Enemy));
 
             attack.SetParent(Transform);
 
@@ -111,12 +115,20 @@ namespace Cirrus.TutorialQuest.World.Objects
             {
                 case Direction.Left:
                 case Direction.Right:
-                    spriteController.Play(AvatarSpriteController.AttackSideAnimation, SpriteAnimator.LoopMode.Once);
+                    spriteController.Play(
+                        AvatarSpriteController.AttackSideAnimation, 
+                        SpriteAnimator.LoopMode.ClampForever);
                     break;
 
-                case Direction.Up:
                 case Direction.Down:
-                    spriteController.Play(AvatarSpriteController.AttackForwardAnimation, SpriteAnimator.LoopMode.Once);
+                    spriteController.Play(
+                        AvatarSpriteController.AttackBackwardAnimation,
+                        SpriteAnimator.LoopMode.ClampForever);
+                    break;
+                case Direction.Up:
+                    spriteController.Play(
+                        AvatarSpriteController.AttackForwardAnimation, 
+                        SpriteAnimator.LoopMode.ClampForever);
                     break;
             }
         }

@@ -13,20 +13,8 @@ using Nez.Sprites;
 using Nez.Textures;
 using Microsoft.Xna.Framework;
 
-namespace Cirrus.TutorialQuest.World.Objects
+namespace TutorialQuest
 {
-    //public enum Animations
-    //{
-    //    WalkForward,
-    //    WalkLeft,
-    //    WalkRight,
-    //    WalkBackward,
-    //    IdleForward,
-    //    IdleLeft,
-    //    IdleRight,
-    //    IdleBackward
-    //}
-
     public class AvatarSpriteController :  SpriteController
     {
         public const string WalkForwardAnimation = "WalkForward";
@@ -43,6 +31,8 @@ namespace Cirrus.TutorialQuest.World.Objects
 
         public const string AttackForwardAnimation = "AttackForward";
 
+        public const string AttackBackwardAnimation = "AttackBackward";
+
         public const string AttackSideAnimation = "AttackSide";
 
         public AvatarSpriteController(SpriteAnimator spriteAnimator) : base(spriteAnimator)
@@ -53,8 +43,6 @@ namespace Cirrus.TutorialQuest.World.Objects
                 texture, 
                 SpriteSize.X, 
                 SpriteSize.Y);
-
-            //SpriteAnimator.OriginNormalized = new Vector2(0.5f, 0);
 
             SpriteAnimator.AddAnimation(WalkForwardAnimation, new[]
             {
@@ -101,6 +89,10 @@ namespace Cirrus.TutorialQuest.World.Objects
                 sprites[40]
             });
 
+            SpriteAnimator.AddAnimation(AttackBackwardAnimation, new[] {
+                sprites[7]
+            });
+
             SpriteAnimator.AddAnimation(AttackSideAnimation, new[]
             {
                 sprites[48],
@@ -117,6 +109,7 @@ namespace Cirrus.TutorialQuest.World.Objects
                 return;
 
             if (SpriteAnimator.IsAnimationActive(AttackForwardAnimation) ||
+                SpriteAnimator.IsAnimationActive(AttackBackwardAnimation) ||
                 SpriteAnimator.IsAnimationActive(AttackSideAnimation))
             {
                 if (SpriteAnimator.IsRunning)

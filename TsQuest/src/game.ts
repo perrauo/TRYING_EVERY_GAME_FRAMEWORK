@@ -26,5 +26,7 @@ window.onload = function()
 
     // TS2339: Property 'Types' does not exist on type 'typeof Phaser'.
     //Phaser.Types.  
+    // Phaser.Types
+    // var animation = new Phaser.Types.Ani();
     
 }
