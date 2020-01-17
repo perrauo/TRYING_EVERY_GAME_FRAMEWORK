@@ -1,56 +1,70 @@
-import pyglet, random, math
+"""
+Sprite Collect Coins
+
+Simple program to show basic sprite usage.
+
+Artwork from http://kenney.nl
+
+If Python and Arcade are installed, this example can be run from the command line with:
+python -m arcade.examples.sprite_collect_coins
+"""
+
+import random
+import arcade
+import os
+
+# --- Constants ---
+SPRITE_SCALING_PLAYER = 0.5
+SPRITE_SCALING_COIN = .25
+COIN_COUNT = 50
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+SCREEN_TITLE = "Sprite Collect Coins Example"
+
+
+import arcade
+import pyglet.graphics
 
 from objects.avatar.avatar import Avatar
 
-import arcade
+class Game(arcade.Window):
 
-# Set up a window
-game_window = pyglet.window.Window(800, 600)
-main_batch = pyglet.graphics.Batch()
+    def __init__(self):
+        """ Initializer """
+        # Call the parent class initializer
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+        pyglet.resource.path = ['./resources']
+        pyglet.resource.reindex()
 
-counter = pyglet.window.FPSDisplay(window=game_window)
+    def setup(self):
+        arcade.set_background_color(arcade.color.CORNFLOWER_BLUE)  
+        self.view : arcade.View = arcade.View()        
+
+        self.sprite_batch = pyglet.graphics.Batch()
+        self.avatar = Avatar(x=400, y=300, batch=self.sprite_batch)
+        self.avatar.play("WalkForward")
+
+    def on_draw(self):
+        """ Draw everything """
+        arcade.start_render()
+        self.sprite_batch.draw()
+
+    def on_mouse_motion(self, x, y, dx, dy):
+        """ Handle Mouse Motion """
+        pass
+
+    def on_update(self, delta_time):
+        """ Movement and game logic """
+        pass
 
 
-level_objects = []
+def main():
+    """ Main method """
+    window = Game()
+    window.setup()
+    arcade.run()
 
-# We need to pop off as many event stack frames as we pushed on
-# every time we reset the level.
-event_stack_size = 0
-
-
-def init():
-
-    pyglet.resource.path = ['./resources']
-    pyglet.resource.reindex()    
-
-    avatar = Avatar(x=400, y=300, batch=main_batch)
-    avatar.play("WalkForward")
-
-    # Add any specified event handlers to the event handler stack
-    for obj in level_objects:
-        for handler in obj.event_handlers:
-            game_window.push_handlers(handler)
-            event_stack_size += 1
-
-@game_window.event
-def on_draw():
-    game_window.clear()
-    main_batch.draw()
-    counter.draw()
-
-def update(dt):    
-    for obj in level_objects:
-        obj.update(dt)
 
 if __name__ == "__main__":
-    # Start it up!
-    init()
-
-    # Update the game 120 times per second
-    pyglet.clock.schedule_interval(update, 1 / 120.0)
-
-    # Tell pyglet to do its thing
-    pyglet.app.run()
-
-
-
+    main()

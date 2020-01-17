@@ -1,0 +1,8 @@
+
+import pygame
+
+STEEL_BLUE = (70, 130, 180)
+BLUE = (0, 0, 255)
+MEDIUM_BLUE = (0, 0, 205)
+CORNFLOWER_BLUE = (100, 149, 237)
+DODGER_BLUE = (30, 144, 255)

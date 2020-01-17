@@ -15,14 +15,13 @@ class Avatar(BaseObject):
         sprite_sheet = pyglet.resource.image('avatar/avatar_spritesheet.png')
         sprites = pyglet.image.ImageGrid(sprite_sheet, rows=8, columns=12)
 
-
         self.animations['WalkForward'] = pyglet.image.Animation.from_image_sequence(
             [
                 sprites[84],
                 sprites[85],
                 sprites[86]
             ],
-            10,
+            0.1,
             True)
     
         self.animations['WalkSide'] = pyglet.image.Animation.from_image_sequence(
@@ -31,7 +30,7 @@ class Avatar(BaseObject):
                 sprites[4],
                 sprites[5]
             ], 
-            10,
+            0.1,
             True)
 
     def play(self, animation:str):
