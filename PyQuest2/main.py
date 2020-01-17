@@ -2,6 +2,8 @@ import pyglet, random, math
 
 from objects.avatar.avatar import Avatar
 
+import arcade
+
 # Set up a window
 game_window = pyglet.window.Window(800, 600)
 main_batch = pyglet.graphics.Batch()
@@ -22,7 +24,7 @@ def init():
     pyglet.resource.reindex()    
 
     avatar = Avatar(x=400, y=300, batch=main_batch)
-    avatar.play("WalkSide")
+    avatar.play("WalkForward")
 
     # Add any specified event handlers to the event handler stack
     for obj in level_objects:
@@ -49,3 +51,6 @@ if __name__ == "__main__":
 
     # Tell pyglet to do its thing
     pyglet.app.run()
+
+
+

@@ -18,9 +18,9 @@ class Avatar(BaseObject):
 
         self.animations['WalkForward'] = pyglet.image.Animation.from_image_sequence(
             [
-                sprites[0],
-                sprites[1],
-                sprites[2]
+                sprites[84],
+                sprites[85],
+                sprites[86]
             ],
             10,
             True)
