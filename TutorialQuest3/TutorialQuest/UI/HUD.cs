@@ -51,15 +51,26 @@ namespace TutorialQuest
             canvas.Stage.AddElement(new HealthBar());
         }
 
-        public override void DebugRender(Batcher batcher)
+        public override void Update()
         {
-            base.DebugRender(batcher);
+            base.Update();
 
             Debug.DrawText(
-                Graphics.Instance.BitmapFont,
-                "Hello World",
-                Screen.Center,
-                Color.White);   
+                 Graphics.Instance.BitmapFont,
+                 "Hello World",
+                 Screen.Center,
+                 Color.White);
         }
+
+        //public override void DebugRender(Batcher batcher)
+        //{
+        //    base.DebugRender(batcher);
+
+        //    Debug.DrawText(
+        //        Graphics.Instance.BitmapFont,
+        //        "Hello World",
+        //        Screen.Center,
+        //        Color.White);   
+        //}
     }
 }
