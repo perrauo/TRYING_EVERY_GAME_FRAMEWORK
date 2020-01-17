@@ -49,7 +49,17 @@ namespace TutorialQuest
             canvas.RenderLayer = (int)Utils.RenderLayer.UI;
 
             canvas.Stage.AddElement(new HealthBar());
+        }
 
+        public override void DebugRender(Batcher batcher)
+        {
+            base.DebugRender(batcher);
+
+            Debug.DrawText(
+                Graphics.Instance.BitmapFont,
+                "Hello World",
+                Screen.Center,
+                Color.White);   
         }
     }
 }

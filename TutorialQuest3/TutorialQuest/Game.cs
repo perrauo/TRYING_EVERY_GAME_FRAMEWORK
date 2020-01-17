@@ -35,7 +35,7 @@ namespace TutorialQuest
 
             //Scene.AddEntity(new Level("Level1"));
 
-            //Scene.AddEntity(new HUD());
+            Scene.AddEntity(new HUD());
         }
 
         protected override void Update(GameTime time)
@@ -46,12 +46,6 @@ namespace TutorialQuest
             {
                 DebugRenderEnabled = !DebugRenderEnabled;
             }
-
-            Debug.DrawText(
-                Graphics.Instance.BitmapFont,
-                "Hello World",
-                Screen.Center,
-                Color.White);
         }
     }
 }
