@@ -11,7 +11,9 @@ class Avatar(pygame.sprite.Sprite):
     def __init__(self, game): 
         self.game = game
         self.groups = game.sprites
-        self.position = (40, game.height - 100)
+        self.speed = 2
+        self.position = pygame.Vector2(40, game.height - 100)        
+        self.velocity = pygame.Vector2(0, 0)
 
         super().__init__(self.groups)
 
@@ -40,8 +42,23 @@ class Avatar(pygame.sprite.Sprite):
 
 
     def update(self, delta_time):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_UP]:
+            self.velocity = -self.speed * pygame.Vector2(0, 1)
+        elif keys[pygame.K_DOWN]:
+            self.velocity = self.speed * pygame.Vector2(0, 1)
+        else:
+            self.velocity = pygame.Vector2(0, 0)
+
+        self.position += self.velocity
         self.animator.update(delta_time)
-        self.rect.midbottom = self.position
+        self.rect.midbottom = tuple(self.position)
+        pass
+
+
+
+
+    def attack():
         pass
 
     def play(self, anim):
