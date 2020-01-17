@@ -35,6 +35,6 @@ class Avatar(BaseObject):
             True)
 
     def play(self, animation:str):
-        # self.image = self.animations[animation]
+        self.image = self.animations[animation]
         pass
 
