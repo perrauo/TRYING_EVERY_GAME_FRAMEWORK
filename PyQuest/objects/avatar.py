@@ -21,8 +21,17 @@ class Avatar(pygame.sprite.Sprite):
         frames = spritesheet.load_strip(pygame.Rect(0, 0, 32, 32), 12)  
 
         self.animations = {}
-        self.animations["WalkFront"] = cirrus.animation.SpriteAnimation([frames[0], frames[1], frames[2]], 10, True)
-        self.animations["WalkSide"] = cirrus.animation.SpriteAnimation([frames[3], frames[4], frames[5]], 10, True)
+        self.animations["WalkFront"] = cirrus.animation.SpriteAnimation(
+            [frames[0], 
+            frames[1], 
+            frames[2]], 
+            0.01, 
+            True)
+
+        self.animations["WalkSide"] = cirrus.animation.SpriteAnimation(
+            [frames[3], frames[4], frames[5]], 
+            0.01, 
+            True)
         
         self.animator = cirrus.animation.SpriteAnimator(self)
         self.play("WalkFront")

@@ -3,6 +3,7 @@
 # Import standard modules.
 import sys
 import os.path 
+import os
 
 # Import non-standard modules.
 import pygame
@@ -40,14 +41,13 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()
+                os._exit(0)                
 
     def draw(self):
-        self.screen.fill(cirrus.color.CORNFLOWER_BLUE)
         pygame.display.flip()
+        self.screen.fill(cirrus.color.CORNFLOWER_BLUE)
         self.sprites.draw(self.screen)
  
-
 game = None	
 
 if __name__ == "__main__":
