@@ -77,9 +77,7 @@ namespace TutorialQuest
 
         public override void DebugRender(Batcher batcher)
         {
-            base.DebugRender(batcher);
-
-            //batcher.DrawString("Hello World", Color.White);
+            base.DebugRender(batcher);           
         }
 
     }

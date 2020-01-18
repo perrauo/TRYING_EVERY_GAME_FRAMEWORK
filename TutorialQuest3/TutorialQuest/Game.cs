@@ -34,6 +34,7 @@ namespace TutorialQuest
             Screen.SetSize(DesignWidth * 3, DesignHeight * 3);
 
             //Scene.AddEntity(new Level("Level1"));
+            //Scene.AddEntity(new Camera)            
 
             Scene.AddEntity(new HUD());
         }

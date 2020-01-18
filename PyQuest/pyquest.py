@@ -5,16 +5,20 @@ import sys
 import os.path 
 import os
 
-# Import non-standard modules.
 import pygame
 import pygame.sprite
-
 import cirrus.color
-
 import objects.avatar
+import level
+import camera
  
+WIDTH = 640
+HEIGHT = 480
+PATH = os.path.dirname(__file__)
 
 class Game:
+    # Set up the window.   
+
     def __init__(self):
         # Initialise PyGame.
         pygame.init()
@@ -23,12 +27,11 @@ class Game:
         self.fps = 60.0
         self.clock = pygame.time.Clock()
         self.sprites = pygame.sprite.LayeredUpdates()
-        self.path = os.path.dirname(__file__)
-
-        # Set up the window.
-        self.width, self.height = 640, 480
-        self.screen = pygame.display.set_mode((self.width, self.height))              
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+               
         self.avatar = objects.avatar.Avatar(self)
+        self.level = level.Level(os.path.join(PATH, './resources/levels/tilemap1.tmx'))
+        self.camera = camera.Camera(self.level.get_width(), self.level.get_height())
 
         delta_time = 1/self.fps
         while True:
@@ -38,6 +41,7 @@ class Game:
 
     def update(self, delta_time):
         self.sprites.update(delta_time)
+        self.camera.update(self.avatar)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -46,7 +50,9 @@ class Game:
     def draw(self):
         pygame.display.flip()
         self.screen.fill(cirrus.color.CORNFLOWER_BLUE)
+        self.level.draw(self.screen)
         self.sprites.draw(self.screen)
+        
  
 game = None	
 

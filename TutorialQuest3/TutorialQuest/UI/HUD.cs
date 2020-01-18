@@ -55,22 +55,21 @@ namespace TutorialQuest
         {
             base.Update();
 
-            Debug.DrawText(
-                 Graphics.Instance.BitmapFont,
-                 "Hello World",
-                 Screen.Center,
-                 Color.White);
+            //Debug.DrawText(
+            //     Graphics.Instance.BitmapFont,
+            //     "Hello World",
+            //     Screen.Center,
+            //     Color.White);
         }
 
-        //public override void DebugRender(Batcher batcher)
-        //{
-        //    base.DebugRender(batcher);
+        public override void DebugRender(Batcher batcher)
+        {
+            base.DebugRender(batcher);
 
-        //    Debug.DrawText(
-        //        Graphics.Instance.BitmapFont,
-        //        "Hello World",
-        //        Screen.Center,
-        //        Color.White);   
-        //}
+            batcher.DrawString(Graphics.Instance.BitmapFont,
+                "Hello World",
+                Screen.Center - Scene.Camera.InverseTransformMatrix.Translation,
+                Color.White);
+        }
     }
 }

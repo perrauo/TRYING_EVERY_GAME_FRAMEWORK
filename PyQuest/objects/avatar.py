@@ -6,19 +6,20 @@ import cirrus.animation
 import cirrus.sprite
 
 import os.path 
+import pyquest
 
 class Avatar(pygame.sprite.Sprite):
     def __init__(self, game): 
         self.game = game
         self.groups = game.sprites
         self.speed = 2
-        self.position = pygame.Vector2(40, game.height - 100)        
+        self.position = pygame.Vector2(40, pyquest.HEIGHT - 100)        
         self.velocity = pygame.Vector2(0, 0)
 
         super().__init__(self.groups)
 
         spritesheet = cirrus.sprite.SpriteSheet(
-            os.path.join(game.path, './resources/avatar/avatar_spritesheet.png'))
+            os.path.join(pyquest.PATH, './resources/avatar/avatar_spritesheet.png'))
 
         frames = spritesheet.load_strip(pygame.Rect(0, 0, 32, 32), 12)  
 
@@ -38,14 +39,14 @@ class Avatar(pygame.sprite.Sprite):
         self.animator = cirrus.animation.SpriteAnimator(self)
         self.play("WalkFront")
         self.rect = self.image.get_rect()
-        self.rect.center = (40, game.height - 100)
+        self.rect.center = (40, pyquest.HEIGHT - 100)
 
 
     def update(self, delta_time):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
             self.velocity = -self.speed * pygame.Vector2(0, 1)
-        elif keys[pygame.K_DOWN]:
+        elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.velocity = self.speed * pygame.Vector2(0, 1)
         else:
             self.velocity = pygame.Vector2(0, 0)
@@ -54,9 +55,6 @@ class Avatar(pygame.sprite.Sprite):
         self.animator.update(delta_time)
         self.rect.midbottom = tuple(self.position)
         pass
-
-
-
 
     def attack():
         pass
