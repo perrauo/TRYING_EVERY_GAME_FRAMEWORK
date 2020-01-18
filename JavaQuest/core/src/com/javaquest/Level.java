@@ -32,10 +32,9 @@ public class Level {
                     case ObjectUtils.AVATAR:
                         Avatar avatar = new Avatar();
                         objects.add(avatar);
-                        Game.instance()
-                                .cameraController
+                        CameraController.getInstance()
                                 .set(avatar);
-                        avatar.set(new Vector2(
+                        avatar.setPosition(new Vector2(
                                 object.getProperties().get(TiledUtils.OBJECT_PROP_X, float.class),
                                 object.getProperties().get(TiledUtils.OBJECT_PROP_Y, float.class)));
 
@@ -56,17 +55,15 @@ public class Level {
     }
 
     public void render(SpriteBatch batch) {
-        tiledMapRenderer.setView(
-                Game.instance()
-                        .cameraController.camera());
 
+        tiledMapRenderer.setView(
+                CameraController.getInstance().getCamera());
         tiledMapRenderer.render();
 
-        batch.setProjectionMatrix(
-                Game.instance()
-                        .cameraController.camera().combined);
-
         batch.begin();
+        batch.setProjectionMatrix(
+                CameraController.getInstance().getCamera().combined);
+
         for (BaseObject object : objects)
         {
             object.render(batch);

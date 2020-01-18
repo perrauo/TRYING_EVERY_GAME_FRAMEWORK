@@ -3,7 +3,6 @@ package com.javaquest.objects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.Dictionary;
@@ -13,21 +12,27 @@ public class AvatarSpriteController {
 
     public static final float FRAME_LENGTH = 0.2f;
     public static final int OFFSET = 8;
-    public static final int SIZE = 64;
+    public static final int SIZE = 32;
     public static final int IMAGE_SIZE = 32;
 
     private float stateTime = 0;
 
-    private Dictionary<AnimationID, Animation<TextureRegion>> animations = new Hashtable<>();
+    private Dictionary<Integer, Animation<TextureRegion>> animations = new Hashtable<>();
 
     private Animation currentAnimation;
 
-    public enum AnimationID {
-        WALK_FORWARD,
-        IDLE_FORWARD;
-    }
+    public static final int WALK_FORWARD_ANIM = 1;
+    public static final int IDLE_FORWARD_ANIM = 2;
+    public static final int WALK_SIDE_ANIM = 3;
+    public static final int IDLE_SIDE_ANIM = 4;
+    public static final int WALK_BACK_ANIM = 5;
+    public static final int IDLE_BACK_ANIM = 6;
+
+    private  boolean looping = false;
 
     private BaseObject object;
+
+    public boolean flipped = false;
 
     public AvatarSpriteController(BaseObject object) {
 
@@ -35,36 +40,66 @@ public class AvatarSpriteController {
         Texture spriteSheet = new Texture("avatar/avatar_spritesheet.png");
         TextureRegion[][] sprites = TextureRegion.split(spriteSheet, IMAGE_SIZE, IMAGE_SIZE);
 
+
         animations.put(
-                AnimationID.WALK_FORWARD,
+                WALK_FORWARD_ANIM,
                 new Animation<TextureRegion>(FRAME_LENGTH,
-                        sprites[0][1], sprites[0][2], sprites[0][3]
+                        sprites[0][0], sprites[0][1], sprites[0][2]
                 ));
 
         animations.put(
-                AnimationID.IDLE_FORWARD,
+                IDLE_FORWARD_ANIM,
                 new Animation<TextureRegion>(FRAME_LENGTH,
                         sprites[0][2]
                 ));
-        play(AnimationID.WALK_FORWARD);
+
+        animations.put(
+                WALK_SIDE_ANIM,
+                new Animation<TextureRegion>(FRAME_LENGTH,
+                        sprites[0][3], sprites[0][4], sprites[0][5]
+                ));
+
+        animations.put(
+                IDLE_SIDE_ANIM,
+                new Animation<TextureRegion>(FRAME_LENGTH,
+                        sprites[0][4]
+                ));
+
+        animations.put(
+                WALK_BACK_ANIM,
+                new Animation<TextureRegion>(FRAME_LENGTH,
+                        sprites[0][6], sprites[0][7], sprites[0][8]
+                ));
+
+        animations.put(
+                IDLE_BACK_ANIM,
+                new Animation<TextureRegion>(FRAME_LENGTH,
+                        sprites[0][7]
+                ));
+
+        play(WALK_FORWARD_ANIM, true);
     }
 
     public void update(float deltaTime) {
         stateTime += deltaTime;
-//        if (currentAnimation.isAnimationFinished(stateTime))
-//        {}
+        if (currentAnimation.isAnimationFinished(stateTime))
+        {
+            stateTime = 0;
+        }
     }
 
-    public void play(AnimationID animation) {
+    public void play(int animation, boolean loop) {
+        looping = loop;
         currentAnimation = animations.get(animation);
     }
 
     public void render(SpriteBatch batch) {
+
         batch.draw(
-                (TextureRegion) currentAnimation.getKeyFrame(stateTime),
-                object.position.x,
+                (TextureRegion) currentAnimation.getKeyFrame(stateTime, looping),
+                object.position.x + SIZE * (flipped ? 1 : 0),
                 object.position.y,
-                SIZE,
+                SIZE * (flipped ? -1 : 1),
                 SIZE);
     }
 }
