@@ -20,4 +20,9 @@ public class InputUtils {
     public static boolean IsRightPressed() {
         return Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT);
     }
+
+    public static boolean IsDebugDrawingJustPressed() {
+        return Gdx.input.isKeyJustPressed(Input.Keys.F1);
+    }
+
 }

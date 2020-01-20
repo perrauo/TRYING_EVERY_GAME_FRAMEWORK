@@ -19,8 +19,13 @@ public class Game extends ApplicationAdapter {
     private Level level;
 
     private static Game instance;
-    public static Game instance() {
+    public static Game getInstance() {
         return instance;
+    }
+
+    private boolean isDebugDrawingEnabled = false;
+    public boolean isDebugDrawingEnabled() {
+        return isDebugDrawingEnabled;
     }
 
     @Override
@@ -37,8 +42,13 @@ public class Game extends ApplicationAdapter {
         GLUtils.glClearColor(ColorUtils.CORNFLOWER_BLUE);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if(InputUtils.IsDebugDrawingJustPressed())
+            isDebugDrawingEnabled = !isDebugDrawingEnabled;
+
         cameraController.update(Gdx.graphics.getDeltaTime());
         level.update(Gdx.graphics.getDeltaTime());
+
+
         level.render(batch);
     }
 

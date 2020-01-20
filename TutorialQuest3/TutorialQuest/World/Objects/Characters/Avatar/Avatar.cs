@@ -33,7 +33,7 @@ namespace TutorialQuest
 
             spriteController =
                 AddComponent(new AvatarSpriteController(
-                AddComponent(new SpriteAnimator())));
+                AddComponent(new SpriteAnimator())));           
         }
 
         public override void OnAddedToScene()
