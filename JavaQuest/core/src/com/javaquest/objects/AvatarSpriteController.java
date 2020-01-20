@@ -5,24 +5,14 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.particles.renderers.PointSpriteRenderer;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-public class AvatarSpriteController {
-
+public class AvatarSpriteController extends SpriteController
+{
     public static final float FRAME_LENGTH = 0.2f;
-    public static final int OFFSET = 8;
-    public static final int SIZE = 32;
-    public static final int IMAGE_SIZE = 32;
-
-    private float stateTime = 0;
-
-    private Dictionary<Integer, Animation<TextureRegion>> animations = new Hashtable<>();
-
-    private Animation currentAnimation;
-
-    private int currentAnimationID;
 
     public static final int WALK_FORWARD_ANIM = 1;
     public static final int IDLE_FORWARD_ANIM = 2;
@@ -31,18 +21,12 @@ public class AvatarSpriteController {
     public static final int WALK_BACK_ANIM = 5;
     public static final int IDLE_BACK_ANIM = 6;
 
-    private boolean looping = false;
-
-    private BaseObject object;
-
-    public boolean flipped = false;
-
     public AvatarSpriteController(BaseObject object) {
+        super();
 
         this.object = object;
         Texture spriteSheet = new Texture("avatar/avatar_spritesheet.png");
-        TextureRegion[][] sprites = TextureRegion.split(spriteSheet, IMAGE_SIZE, IMAGE_SIZE);
-
+        TextureRegion[][] sprites = TextureRegion.split(spriteSheet, getSize(), getSize());
 
         animations.put(
                 WALK_FORWARD_ANIM,
@@ -81,30 +65,5 @@ public class AvatarSpriteController {
                 ));
 
         play(WALK_FORWARD_ANIM, true);
-    }
-
-    public void update(float deltaTime) {
-        stateTime += deltaTime;
-    }
-
-    public void play(int animation, boolean loop) {
-        if(animation == currentAnimationID)
-            return;
-
-        System.out.println(currentAnimation);
-        looping = loop;
-        currentAnimationID = animation;
-        currentAnimation = animations.get(currentAnimationID);
-    }
-
-    public void render(SpriteBatch batch) {
-        batch.begin();
-        batch.draw(
-                (TextureRegion) currentAnimation.getKeyFrame(stateTime, looping),
-                object.position.x + SIZE * (flipped ? 1 : 0),
-                object.position.y,
-                SIZE * (flipped ? -1 : 1),
-                SIZE);
-        batch.end();
     }
 }

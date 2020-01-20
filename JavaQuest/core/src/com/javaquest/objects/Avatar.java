@@ -3,17 +3,12 @@ package com.javaquest.objects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.cirrus.RectangleUtils;
 import com.cirrus.TiledUtils;
 import com.cirrus.Utils;
-import com.javaquest.CameraController;
-import com.javaquest.Game;
-import com.javaquest.InputUtils;
-import com.javaquest.Level;
+import com.javaquest.*;
 //import com.badlogic.gdx.graphics.sp
 
 public class Avatar extends BaseObject {
@@ -24,10 +19,11 @@ public class Avatar extends BaseObject {
     private Utils.Direction direction = Utils.Direction.DOWN;
 
     private Rectangle hitbox;
-    private ShapeRenderer hitboxRenderer = new ShapeRenderer();
-    private Vector2 hitboxOffset = new Vector2(32 / 4, 0);
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private static final int hitboxWidth = 32 / 2;
+    private Vector2 hitboxOffset = new Vector2(-hitboxWidth/2, -32/8);
+
+    private static final int hitboxWidth = 32 / 3;
     private static final int hitboxHeight = 32 / 4;
 
     public Avatar() {
@@ -61,26 +57,45 @@ public class Avatar extends BaseObject {
 
         if (TiledUtils.worldToCell(
                 Level.getInstance().getCollisionLayer(),
-                horizontalCollision + (int)velocity.x,
+                horizontalCollision + (int) velocity.x,
                 RectangleUtils.top(hitbox)) != null ||
             TiledUtils.worldToCell(
-                        Level.getInstance().getCollisionLayer(),
-                        horizontalCollision + (int)velocity.x,
-                        RectangleUtils.bottom(hitbox)) != null)
+                Level.getInstance().getCollisionLayer(),
+                horizontalCollision + (int) velocity.x,
+                RectangleUtils.bottom(hitbox)) != null)
         {
-            if(velocity.x > 0) {
-                // TODO TILE_SIZE = 32
-                // moving to the right
-                position.x = position.x - ((int)position.x % 32) + 31 - (RectangleUtils.right(hitbox) - position.x);
-            }
-            else {
-                position.x = position.x - ((int)position.x % 32) + (RectangleUtils.left(hitbox) - position.x);
-            }
+            position.x =
+                velocity.x > 0 ?
+                position.x + (((int) position.x) % LevelUtils.TILE_SIZE) - (LevelUtils.TILE_SIZE-1) - (position.x - RectangleUtils.right(hitbox)) :
+                position.x - (((int) position.x) % LevelUtils.TILE_SIZE) - (RectangleUtils.left(hitbox) - position.x);
 
             velocity.x = 0;
         }
 
+//         Vertical Collision
+        int verticalCollision = velocity.y > 0 ?
+                RectangleUtils.top(hitbox) :
+                RectangleUtils.bottom(hitbox);
+
+        if (TiledUtils.worldToCell(
+                Level.getInstance().getCollisionLayer(),
+                RectangleUtils.left(hitbox),
+                verticalCollision + velocity.y) != null ||
+            TiledUtils.worldToCell(
+                Level.getInstance().getCollisionLayer(),
+                RectangleUtils.right(hitbox),
+                verticalCollision + velocity.y) != null) {
+
+            position.y =
+                    velocity.y > 0 ?
+                        position.y - (((int) position.y) % LevelUtils.TILE_SIZE) + (LevelUtils.TILE_SIZE-1) + (RectangleUtils.bottom(hitbox) - position.y) :
+                        position.y + (((int) position.y) % LevelUtils.TILE_SIZE) - (RectangleUtils.top(hitbox) - position.y);
+
+            velocity.y = 0;
+        }
+
         position = position.add(velocity);
+        hitbox.setPosition(position.cpy().add(hitboxOffset));
 
         if (inputAxes.x < 0) {
             direction = Utils.Direction.LEFT;
@@ -123,7 +138,6 @@ public class Avatar extends BaseObject {
         }
 
         spriteController.update(deltaTime);
-        hitbox.setPosition(position.cpy().add(hitboxOffset));
     }
 
 
@@ -132,15 +146,20 @@ public class Avatar extends BaseObject {
 
         spriteController.render(batch);
 
-
         if (!Game.getInstance().isDebugDrawingEnabled())
             return;
 
-        hitboxRenderer.setProjectionMatrix(
+        shapeRenderer.setProjectionMatrix(
                 CameraController.getInstance().getCamera().combined);
-        hitboxRenderer.begin(ShapeRenderer.ShapeType.Line);
-        hitboxRenderer.setColor(Color.RED);
-        hitboxRenderer.rect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
-        hitboxRenderer.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.YELLOW);
+        shapeRenderer.circle(position.x, position.y, 2);
+        shapeRenderer.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.rect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+        shapeRenderer.end();
     }
 }
