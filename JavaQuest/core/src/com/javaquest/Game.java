@@ -47,8 +47,6 @@ public class Game extends ApplicationAdapter {
 
         cameraController.update(Gdx.graphics.getDeltaTime());
         level.update(Gdx.graphics.getDeltaTime());
-
-
         level.render(batch);
     }
 

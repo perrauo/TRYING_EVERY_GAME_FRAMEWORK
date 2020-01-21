@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class AvatarSpriteController extends SpriteController
-{
+public class SlimeSpriteController extends SpriteController {
+
     public static final float FRAME_LENGTH = 0.2f;
 
     public static final int WALK_FORWARD_ANIM = 1;
@@ -15,11 +15,11 @@ public class AvatarSpriteController extends SpriteController
     public static final int WALK_BACK_ANIM = 5;
     public static final int IDLE_BACK_ANIM = 6;
 
-    public AvatarSpriteController(Object object) {
+    public SlimeSpriteController(Object object){
         super();
 
         this.object = object;
-        Texture spriteSheet = new Texture("avatar/avatar_spritesheet.png");
+        Texture spriteSheet = new Texture("monsters/monster_spritesheet.png");
         TextureRegion[][] sprites = TextureRegion.split(spriteSheet, getSize(), getSize());
 
         animations.put(

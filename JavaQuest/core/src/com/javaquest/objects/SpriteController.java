@@ -21,7 +21,7 @@ public abstract class SpriteController {
     private boolean looping = false;
     public boolean flipped = false;
 
-    protected BaseObject object;
+    protected Object object;
 
 
     public void update(float deltaTime) {

@@ -2,12 +2,12 @@ package com.javaquest;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.javaquest.objects.BaseObject;
+import com.javaquest.objects.Object;
 
 public class CameraController {
 
     private OrthographicCamera camera;
-    private BaseObject target;
+    private Object target;
 
     public OrthographicCamera getCamera() {
         return camera;
@@ -31,7 +31,7 @@ public class CameraController {
         return camera;
     }
 
-    public void set(BaseObject target) {
+    public void set(Object target) {
         this.target = target;
     }
 

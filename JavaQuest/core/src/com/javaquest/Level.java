@@ -11,10 +11,12 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.cirrus.TiledUtils;
 import com.javaquest.objects.Avatar;
-import com.javaquest.objects.BaseObject;
+import com.javaquest.objects.Object;
 import com.javaquest.objects.ObjectUtils;
+import com.javaquest.objects.Slime;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -22,7 +24,7 @@ public class Level {
 
     private TiledMap tiledMap;
     private TiledMapRenderer tiledMapRenderer;
-    private List<BaseObject> objects = new ArrayList<>();
+    private List<Object> objects = new ArrayList<>();
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -40,8 +42,8 @@ public class Level {
         instance = this;
         tiledMap = new TmxMapLoader().load("levels/tilemap1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-
-        for (MapLayer layer : tiledMap.getLayers()) {
+        for (MapLayer layer : tiledMap.getLayers())
+        {
             switch (layer.getName())
             {
                 case TiledUtils.LAYER_COLLISION:
@@ -49,7 +51,8 @@ public class Level {
                     break;
 
                 case TiledUtils.LAYER_OBJECT:
-                    for (MapObject object : layer.getObjects()) {
+                    for (MapObject object : layer.getObjects())
+                    {
                         switch (object.getName()) {
                             case ObjectUtils.AVATAR:
                                 Avatar avatar = new Avatar();
@@ -59,20 +62,42 @@ public class Level {
                                 avatar.setPosition(new Vector2(
                                         object.getProperties().get(TiledUtils.OBJECT_PROP_X, float.class),
                                         object.getProperties().get(TiledUtils.OBJECT_PROP_Y, float.class)));
-
                                 break;
+
                             case ObjectUtils.SLIME:
+                                objects.add(new Slime());
+                                objects.get(objects.size()-1).setPosition(new Vector2(
+                                        object.getProperties().get(TiledUtils.OBJECT_PROP_X, float.class),
+                                        object.getProperties().get(TiledUtils.OBJECT_PROP_Y, float.class)));
                                 break;
                         }
                     }
                     break;
-
             }
+        }
+
+        for(Object obj : objects) {
+            obj.onStart();
         }
     }
 
+    public <T extends Object> T find(Class<T> type)
+    {
+        for(Object obj : objects)
+        {
+            if(type.isInstance(obj))
+            {
+                return (T) obj;
+            }
+        }
+
+        return null;
+    }
+
+
+
     public void update(float deltaTime) {
-        for (BaseObject object : objects)
+        for (Object object : objects)
         {
             object.update(deltaTime);
         }
@@ -87,7 +112,8 @@ public class Level {
         batch.setProjectionMatrix(
                 CameraController.getInstance().getCamera().combined);
 
-        for (BaseObject object : objects)
+        objects.sort(Comparator.comparing(Object::getDepth));
+        for (Object object : objects)
         {
             object.render(batch);
         }
